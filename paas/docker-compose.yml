@@ -1,0 +1,154 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.3
+    restart: "${RESTART_OPTION:-no}"
+    command:
+      # - --log.level=DEBUG
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --api.insecure=true
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=false"
+
+  db: 
+    image: "mysql:8"
+    restart: "${RESTART_OPTION:-no}"
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
+    command: mysqld --sort_buffer_size=256000000 --max_allowed_packet=100000000 --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./containerdata/data-mysql/:/var/lib/mysql
+      - ./dockerdata/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    labels:
+      - "traefik.enable=false"
+
+  solr:
+    image: solr:9
+    restart: "${RESTART_OPTION:-no}"
+    volumes:
+      - ./containerdata/solr/cores:/var/solr
+      - ./dockerdata/solr/configsets/tecadigitale:/opt/solr/server/solr/configsets/tecadigitale
+      - ./dockerdata/solr/configsets/tecadigitale_delivery:/opt/solr/server/solr/configsets/tecadigitale_delivery
+    environment:
+      SOLR_JAVA_MEM: "-Xms1g -Xmx1g"
+
+  tecadigitalesystem:
+    image: localhost/sbnteca-remota-system:2.0.0
+    restart: "${RESTART_OPTION:-no}"
+    ports:
+      - "5005:5005"
+    depends_on:
+      - db
+    environment:
+      SOLR_DELIVERY_URL: "http://solr:8983/solr/tecadigitale_delivery/"
+      SOLR_TDI_URL: "http://solr:8983/solr/tecadigitale/"
+      DB_URL: "jdbc:mysql://db:3306/tecadigitale_db"
+      DB_USER: ${MYSQL_ROOT_USERNAME:-root}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_SERVLET_CONTEXTPATH: "/TecaDigitaleSystem"
+      BACKEND_SERVER_EXTERNAL: ${SERVER_BASE:-http://127.0.0.1}
+      TDI_SYSTEM_URL: "http://tecadigitalesystem:8080/TecaDigitaleSystem"
+      logging.level.com.gruppometa.sbntecaremota.restweb.objects: TRACE
+      logging.level.com.gruppometa.sbntecaremota.upgrade: DEBUG
+      SECURITY_ENABLED: ${SECURITY_ENABLED:-true}
+      upgrade.enabled: "${UPGRADE_ENABLED:-false}"
+    volumes:
+       - ./containerdata/app-data:/app-data
+    labels:
+#      - "traefik.enable=false"
+      - "traefik.http.routers.tecadigitalesystem.rule=PathPrefix(`/TecaDigitaleSystem`)"
+      - "traefik.http.services.tecadigitalesystem.loadbalancer.server.port=8080"
+      - "traefik.http.routers.tecadigitalesystem.middlewares=protoHeader2"
+      - "traefik.http.middlewares.protoHeader2.headers.customrequestheaders.X-Forwarded-Proto=${HTTP_PROTOCOL_SITE:-https}"
+      - "traefik.http.middlewares.protoHeader2.headers.customrequestheaders.X-Forwarded-Port=${HTTP_PORT_SITE:-443}"
+
+  metaoaicat:
+    image: localhost/sbnteca-remota-metaoaicat:2.0.0
+    restart: "${RESTART_OPTION:-no}"
+    ports:
+      - "9000:9000"
+      - "5007:5007"
+    deploy:
+      resources:
+        limits:
+          memory: 2000M
+    environment:
+      - OAIHANDLERDATI_IDENTIFY_REPOSITORYNAME="Teca Dgitale Repositoy"
+      - OAIHANDLERDATI_OAIHANDLER_BASEURL=${SERVER_BASE:-http://127.0.0.1}/metaoaicat
+      - OAIHandlerDati.Solr2MetsSimple.manifestUrl=${SERVER_BASE:-http://127.0.0.1}/TecaDigitaleSystem/iiif/v3/manifestById.json?id=
+      - OAIHandlerDati.Solr2MetsSimple.previewUrl=${SERVER_BASE:-http://127.0.0.1}/TecaDigitaleSystem
+      - SPRING_PROFILES_ACTIVE=tdi
+      - OAIHANDLERDATI_OAIHANDLER_PREFIX=oai:tecadigitale:repository
+      - OAIHANDLERDATI_SOLROAICATALOG_SOLRURL=http://solr:8983/solr/tecadigitale
+      - CONFIGDB_URL=jdbc:mysql://db:3306/icconfig2?autoReconnect=true&useSSL=false
+      - CONFIGDB_DBNAME=icconfig2
+      - CONFIGDB_USERNAME=${MYSQL_ROOT_USERNAME:-root}
+      - CONFIGDB_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin}
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007
+
+    labels:
+      - "traefik.http.routers.metaoaicat.rule=PathPrefix(`/metaoaicat`)"
+      - "traefik.http.services.metaoaicat.loadbalancer.server.port=9000"
+
+  console:
+    image: localhost/sbnteca-remota-console:2.0.0
+    restart: "${RESTART_OPTION:-no}"
+    ports:
+      - "5006:5006"
+    deploy:
+      resources:
+        limits:
+          memory: 3000M
+    environment:
+      application.title: "${APPLICATION_TITLE:-SbnTeca Remota}"
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_SERVLET_CONTEXTPATH: "/console"
+      FRONTEND_SERVER_EXTERNAL: ${SERVER_BASE:-http://127.0.0.1}/console/
+      BACKEND_SERVER_EXTERNAL: ${SERVER_BASE:-http://127.0.0.1}
+      BACKEND_SERVER_INTERNAL: http://tecadigitalesystem:8080
+      configs.oaiBaseRest: ${SERVER_BASE:-http://127.0.0.1}/console/metaoaicat/rest/
+      configs.oaiHandler: ${SERVER_BASE:-http://127.0.0.1}/metaoaicat/OAIHandlerDati
+      configs.baseRestMetaOaicatInternal: "${DOCKER_HOST_URL:-http://172.17.0.1}/metaoaicat/rest/"
+    labels:
+      - "traefik.http.routers.console.rule=PathPrefix(`/console`)"
+      - "traefik.http.services.console.loadbalancer.server.port=9000"
+    depends_on:
+      - metaoaicat
+
+  cantaloupe:
+    image: gruppometasrl/cantaloupe:5.0.5
+    restart: "${RESTART_OPTION:-no}"
+    environment:
+      - JAVA_OPTS=-Xmx1g -Dlog4j2.formatMsgNoLookups=true
+      - HTTPSOURCE_LOOKUP_STRATEGY=BasicLookupStrategy
+      - SOURCE_STATIC=HttpSource
+      - HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://tecadigitalesystem:8080/TecaDigitaleSystem/digitalObject/
+      - HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=
+      - PROCESSOR_FALLBACK=Java2dProcessor
+      - FILESYSTEMCACHE_PATHNAME=/var/cache/cantaloupe
+      - FILESYSTEMCACHE_DIR_DEPTH=3
+      - FILESYSTEMCACHE_DIR_NAME_LENGTH=2
+      - CACHE_SERVER_DERIVATIVE_ENABLED=true
+      - CACHE_SERVER_DERIVATIVE=FilesystemCache
+      - CACHE_SERVER_DERIVATIVE_TTL_SECONDS=2592000
+      - SLASH_SUBSTITUTE=@
+    volumes:
+      - ./containerdata/cantaloupe:/var/cache/cantaloupe
+    command: java -cp /opt/app/cantaloupe.jar:/opt/app/java-delegate-1.0.2-SNAPSHOT.jar -Dcantaloupe.config=/opt/app/cantaloupe.properties -Xmx2g edu.illinois.library.cantaloupe.StandaloneEntry
+    working_dir: /opt/app
+    labels:
+      - "traefik.http.routers.cantaloupe.rule=PathPrefix(`/iiif`)"
+      - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=2147483648"
+      - "traefik.http.services.cantaloupe.loadbalancer.server.port=8182"
+      - "traefik.http.routers.cantaloupe.middlewares=protoHeader"
+      - "traefik.http.middlewares.protoHeader.headers.customrequestheaders.X-Forwarded-Proto=${HTTP_PROTOCOL_SITE:-https}"
+      - "traefik.http.middlewares.protoHeader.headers.customrequestheaders.X-Forwarded-Port=${HTTP_PORT_SITE:-443}"

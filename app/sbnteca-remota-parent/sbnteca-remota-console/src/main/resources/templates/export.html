@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/search.js" type="text/javascript"></script>
+        <div id="blockDisplay" class="modal-backdrop hide fade">
+            <div class="modal-body pager">
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+                <img src="images/progress_loading.gif"></img>
+                <h3 id="blockText">Ricerca risultati in corso.</h3>
+            </div>
+        </div>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Esporta</h3></div>
+        		</div>
+        		<div class="span9 row">
+                    <div th:replace="teca_digitale :: searchForm"></div>
+                    <div>
+                        <div th:replace="teca_digitale :: resultArea"></div>
+                        <div th:replace="teca_digitale :: summaryOperation"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+        <div class="modal hide fade" id="op-executing-warning">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4>Operazione di esportazione MAG in esecuzione</h4>
+			</div>
+			<div class="modal-body">
+			    <p><div class="alert alert-warning">Un'operazione di modifica dell'indice è attualmente in esecuzione e 
+			    potrebbe durare qualche minuto. Sei sicuro di non voler attenderne la terminazione e cambiare pagina?</div></p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noBtn">No</a>
+			    <a class="btn btn-primary" id="yesBtn">Si</a>
+			</div>
+        </div>
+        <div class="modal hide fade" id="export-csv-window">
+        	<div class="modal-header">
+			    <h4>Esportazione CSV in corso</h4>
+			</div>
+			<div class="modal-body">
+				<div style="text-align: center"><img class="text-center" src="images/progress_loading_icon.gif"></img></div>
+			</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,101 @@
+
+server:
+  port: 9000
+  
+configs:
+  urlPrefix: /metaoaicat
+  defaultServlet: OAIHandlerDati
+
+configdb:
+  url: "jdbc:mysql://127.0.0.1:3306/icconfig2?autoReconnect=true&useSSL=false"
+  driverClass: ""
+  username: "icconfig"
+  password: "icconfig"
+  dbname: "icconfig2"  
+
+
+xsl:
+  param:
+    DEFAULT_PREFIX: mag
+    MAG_ACTIVE: true
+    PICO_ACTIVE: false
+    OAIDC_ACTIVE: true
+    TECA_HOME: ""
+    BACK_COLOR: "#1B897C"
+    BORDER_COLOR: "#3BB9AC"
+
+spring:
+  application:
+    name: metaoaicat
+  data:
+    solr:
+      repositories:
+        enabled: false
+  boot:
+    admin:
+      url: "http://localhost:8881"
+      client:
+        url: "http://localhost:8881"
+      api-path: instances
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
+  health:
+    solr:
+      enabled:  false
+
+
+
+---
+
+###
+# Profile per tecadigitale produzione
+#####
+spring:
+  config.activate.on-profile: tdi
+xsl:
+  param:
+    DEFAULT_PREFIX: mag
+    MAG_ACTIVE: false
+    METS_ACTIVE: true
+    METS_SIMPLE_ACTIVE: true
+    PICO_ACTIVE: false
+    OAIDC_ACTIVE: true
+    TECA_HOME: "/TecaDigitale/oaisets"
+
+#OAIHandler:
+#  AbstractCatalog:
+#    recordFactoryClassName: com.gruppometa.metaoaicat.SolrTdiRecordFactory
+OAIHandlerDati:
+  AbstractCatalog:
+    recordFactoryClassName: com.gruppometa.metaoaicat.SolrTdiRecordFactory
+  baseURL: "http://127.0.0.1/metaoaicat"
+  SolrOAICatalog:
+    solrUrl: http://127.0.0.1:8983/solr/tecadigitale
+    solr1Compatibility: false
+    idField: oai_identifier
+    onlyNeededFields: true
+    metadataFilter:
+      mets: "*:*"
+  Crosswalks:
+    mag: com.gruppometa.metaoaicat.crosswalk.Solr2mag
+    mets: com.gruppometa.metaoaicat.crosswalk.Solr2mets
+    mets-simple: com.gruppometa.metaoaicat.crosswalk.Solr2MetsSimple
+  Solr2mag:
+    xmlField: magxmlExternal
+  Solr2mets:
+    xmlField: metsxmlExternal
+  Solr2MetsSimple:
+    xsltName: mets2mets-simple.xslt
+    manifestUrl: "http://127.0.0.1/TecaDigitaleSystem/iiif/v3/manifestById.json?id="
+    previewUrl: "http://127.0.0.1/TecaDigitaleSystem"
+  Identity:
+    repositoryName: "Teca Digitale Italiana"
+    deletedRecord: yes
+    prefix: "oai:www.internetculturale.sbn.it/Teca:20:NT0000"
+#    prefix: "oai:tdi:prova"
+

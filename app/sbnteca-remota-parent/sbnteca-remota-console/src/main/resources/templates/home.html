@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Home</h3></div>
+        		</div>
+        		<div class="span9 row well">
+                    <div class="span12">
+	        			<p>La Teca Digitale esegue le seguenti operazioni:</p>
+	                    <ul>
+	                       	<li th:switch="${#httpServletRequest.isUserInRole('ROLE_UPLOAD_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{upload}" class="btn-link">Upload di un nuovo progetto</a>
+	                          	<div th:case="${false}">Upload di un nuovo progetto</div>
+	                       	</li>
+	                       	<li th:switch="${#httpServletRequest.isUserInRole('ROLE_UPLOAD_UPDATE_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{uploadUpdate}" class="btn-link">Upload di aggiornamento</a>
+	                            <div th:case="${false}">Upload di aggiornamento</div>
+	                       	</li>
+	                       	<li th:switch="${#httpServletRequest.isUserInRole('ROLE_IMPORT_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{import}" class="btn-link">Importazione totale o parziale dei progetti</a>
+	                            <div th:case="${false}">Importazione totale o parziale dei progetti</div>
+	                        </li>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_UPDATE_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{update}" class="btn-link">Aggiornamento totale o parziale dei progetti</a>
+	                            <div th:case="${false}">Aggiornamento totale o parziale dei progetti</div>
+	                        </li>
+	                    </ul>
+	                    <p></p>
+	                    <p>La gestione dei MAG prevede le seguenti attività:</p>
+	                    <ul>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_DRAFT_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{drafts}" class="btn-link">Bozze</a>
+	                            <div th:case="${false}">Bozze</div>
+	                        </li>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_SEARCH_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{search}" class="btn-link">Consultazione</a>
+	                            <div th:case="${false}">Consultazione</div>
+	                        </li>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_EXPORT_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{export}" class="btn-link">Esportazione</a>
+	                            <div th:case="${false}">Esportazione</div>
+	                        </li>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_STATS_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{stats}" class="btn-link">Elaborati statistici</a>
+	                            <div th:case="${false}">Elaborati statistici</div>
+	                        </li>
+	                        <li th:switch="${#httpServletRequest.isUserInRole('ROLE_DIGITAL_OBJECT_STATS_MANAGER')}">
+	                            <a th:case="${true}" th:href="@{objectsStats}" class="btn-link">Oggetti digitali</a>
+	                            <div th:case="${false}">Oggetti digitali</div>
+	                        </li>
+	                    </ul>
+	        		</div>
+	        	</div>
+        	</div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+    </body>
+</html>

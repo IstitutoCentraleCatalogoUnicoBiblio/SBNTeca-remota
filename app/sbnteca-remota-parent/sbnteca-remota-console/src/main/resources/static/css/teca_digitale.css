@@ -1,0 +1,267 @@
+a.btn-link {
+	color: #1BBC9B;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+a.btn-link:hover {
+	color: #1B897D;
+}
+
+#menu li a {
+	color: #1BBC9B;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#menu li.active a {
+	color: white;
+	background-color: #1BBC9B;
+}
+
+a {
+	cursor: pointer;
+}
+
+.progress-striped .bar {
+	background-color: #1BBC9B;
+}
+
+.logo {
+	width: 64px;
+	display: inline-block;
+	background-color: white;
+	background-repeat: no-repeat;
+	padding: 8px;
+}
+
+.logo-header {
+	width: 32px;
+	display: inline-block;
+	background-color: #white;
+	background-repeat: no-repeat;
+	padding: 4px;
+	margin-right: 10px;
+}
+
+.login-footer {
+	height: 51px; 
+	background-color: #F5F5F5; 
+	width: 100%; 
+	right: 0px; 
+	padding: 10px !important; 
+	border: 2px solid #CCC; 
+	box-shadow: 0 0 15px #D4D4D4 inset
+}
+
+.login-footer img {
+	margin-right: 10px;
+	border: 1px solid #CCC;
+    border-radius: 5px;
+}
+
+.btn-icon.icon-remove-circle {
+	background-color: #C33;
+}
+
+.btn-icon.icon-ok-circle {
+	background-color: #090;
+}
+
+.btn-icon.icon-folder, .btn-icon.icon-folder-open {
+	background-color: #CC0;
+}
+
+.facet_field_display {
+	font-size: 13px;
+}
+
+.nav>.disabled>a:hover {
+    color: #999;
+}
+
+#LoginPage #loginbox {
+	top: 40%;
+}
+
+@media (min-width: 544px)
+.jumbotron {
+    padding: 4rem 2rem;
+}
+
+.jumbotron {
+    padding: 5px 5px;
+    background-color: #eceeef;
+    /*text-align: center;*/
+}
+
+.jumbotron h4 {
+	display: inline-block; 
+	vertical-align: middle
+}
+
+.jumbotron .pull-right .pull-left:nth-of-type(1) {
+	padding: 8px 13px 4px; color: #333; font-style: italic;
+}
+
+#exit-menu a:hover {
+	color: #1B897D!important;
+	text-decoration: underline;
+}
+
+#exit-menu {
+	border-left: 1px solid #333;
+}
+
+#exit-menu, #exit-menu a {
+	color: #333;
+}
+
+ul.nav-tabs li a {
+	background-color: #CCC;
+    color: #FFF;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1B897D;
+    background-image: linear-gradient(to bottom,#1B8C9B,#1BBC9B);
+}
+
+.btn-primary.active, .btn-primary.disabled, .btn-primary:active, .btn-primary:hover, .btn-primary[disabled] {
+    color: #fff;
+    background-color: #1BBC9B;
+}
+
+#inputFile {
+	display: none;
+}
+
+#displayFileName {
+	padding-left: 10px;
+}
+
+.teca_doc {
+	width: 60em;
+	height: 60em;
+	background-color: white;
+}
+
+.detail-section.form-horizontal .control-group {
+	margin-bottom: 5px;
+}
+
+.detail-section-header {
+    margin: 20px 0 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.usage_gallery_paginate {
+	text-align: center; 
+	vertical-align: middle;
+}
+
+.table-bordered td.gallery_preview_box {
+	text-align: center; 
+	height: 180px; 
+	width: 150px; 
+	box-sizing: border-box; 
+	padding-top: 20px;
+}
+
+#fileServer {
+	margin: 5px 10px 0 0;
+}
+
+.normalize_new_value {
+	width: 95%;
+}
+
+.facet_field_display.nav-list>li>a {
+	word-break: break-word;
+}
+
+.import-label {
+	color: #1B8C9B;
+}
+
+.page-menu-header {
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.page-menu-header h3 {
+	margin-top: 0;
+}
+
+table tbody {
+	word-break: break-word;
+}
+.ui-autocomplete, .ui-font {
+	z-index:2147483647 !important;
+}
+
+#modifyContainer{
+ 	width: 860px;
+ 	margin-left: -430px;
+}
+
+#modifyContainer .control-label{
+	display: inline-block;
+	min-width: 200px;
+}
+
+/**
+ * Nuovo stile
+ **/
+body{
+	/*background-color: #f2f2f2;*/
+}
+
+.jumbotron{
+	/*background-color: white;*/
+	margin-bottom: 0px;
+}
+
+.well{
+	/*background-color: white;*/
+}
+
+.container-fluid{
+	padding-left: 0px;
+}
+
+.page-menu-header{
+	/*background-color: white;*/
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.span2{
+	/*background-color: white;*/
+	margin-top: 9px;
+	padding-left: 0px;
+	padding-top: 0px;
+}
+
+.span2,.page-menu-header,.jumbotron{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	/*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
+}
+
+#loginbox, .login-footer{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+}
+
+.page-menu-header{
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 0px;
+}
+
+h3{
+	line-height: 30px;
+	font-size: 20px;
+}

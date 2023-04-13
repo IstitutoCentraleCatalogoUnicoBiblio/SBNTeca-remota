@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var defaultRoleCreate = JSON.parse(/*[[${default_role}]]*/ "{}");
+            /*]]>*/
+        </script>
+        <script src="js/roles.js" type="text/javascript"></script>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Ruoli</h3></div>
+        		</div>
+        		<div class="span9 row">
+                    <div class="row-fluid">
+                   		<div id="createRole" class="span4">
+                   			<img src="images/add.png" width="14" height="14" />
+                        	<a class="btn-link">Crea Nuovo Ruolo</a>
+                   		</div>
+                   		<div class="help-block row"></div>
+	                    <div class="help-block row"></div>
+	                    <div class="help-block row"></div>
+                   	</div>
+                    <div id="roleTableArea" class="row-fluid">
+                    	<div class="row-fluid span10">
+                    		<table id="roles" class="table table-bordered table-striped"></table>
+                    		<div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+                    		<div class="alert alert-error" id="error" style="display: none"></div>
+                    	</div>
+                    </div>
+                    <div id="roleRightsArea" class="row-fluid span12" style="display: none">
+                    	<input type="hidden" id="role_id" name="role_id" />
+                    	<div class="row-fluid form-horizontal">
+                    		<div class="control-group">
+                    			<label class="control-label"><b>Nome Ruolo:</b></label>
+                    			<div class="controls">
+                    				<input id="role_name" type="text" name="role_name" />
+                    				<span class="alert alert-error offset1" id="rolenameError" style="display: none"></span>
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<div class="row-fluid">
+                    		<div class="span12">
+                    			<div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                	<h4>Diritti Home</h4>
+			                	<table id="homeRights" class="table table-bordered"></table>
+	                    	</div>
+                    	</div>
+                    	<div class="row-fluid">
+	                    	<div class="span12">
+	                    		<div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                	<h4>Diritti Manutenzione</h4>
+			                	<table id="searchRights" class="table table-bordered"></table>
+			                </div>
+                    	</div>
+                    	<div class="row-fluid">
+                    		<div class="span4">
+	                    		<div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                	<h4>Diritti Statistiche</h4>
+			                	<table id="statsRights" class="table table-bordered"></table>
+			                </div>
+                    	</div>
+                    	<div class="row-fluid">
+                    		<div class="span6">
+	                    		<div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                    <div class="help-block row"></div>
+			                	<h4>Diritti Utenti/OAI Provider</h4>
+			                	<table id="otherRights" class="table table-bordered"></table>
+			                </div>
+                    	</div>
+                    	<div class="row-fluid">
+                    		<div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+		                	<input type="button" id="saveBtn" class="btn btn-primary" value="Salva" />
+                            <input type="button" id="undoBtn" class="btn btn-default" value="Annulla" />
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+        <div class="modal hide fade" id="delete-confirm">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4></h4>
+			</div>
+			<div class="modal-body">
+			    <p>Sei sicuro di voler procedere con la cancellazione?</p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noBtn">No</a>
+			    <a class="btn btn-primary" id="yesBtn">Si</a>
+			</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+    jaxb:extensionBindingPrefixes="xjc">
+
+    <jaxb:globalBindings>
+        <xjc:simple />
+        <xjc:serializable uid="-1" />
+    </jaxb:globalBindings>
+
+	<jaxb:bindings schemaLocation="mets/mix.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.gruppometa.data.mets.mix"/>
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="mets/niso-mag.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.gruppometa.data.mets.niso"/>
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="mets/videoMD.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.gruppometa.data.mets.videomd"/>
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="mets/audioMD.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.gruppometa.data.mets.audiomd"/>
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+	<jaxb:bindings schemaLocation="mets/mods-3-7.xsd">
+			<jaxb:bindings>
+                    <namespace:prefix name="mods" />
+            </jaxb:bindings>
+		<jaxb:schemaBindings>
+                <jaxb:package name="com.gruppometa.data.mods"/>
+        </jaxb:schemaBindings>
+		<jaxb:bindings node="//xs:extension[@base='extensionDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeExt"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='physicalLocationDefinition']/xs:simpleContent/xs:extension[@base='stringPlusLanguagePlusAuthority']/xs:attribute[@name='type']">
+			<jaxb:property name="typePlusAuthority"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='abstractDefinition']/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typePlus"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:element[@name='note']/xs:complexType/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typePlus2"/>
+		</jaxb:bindings>
+		<!--
+		<jaxb:bindings node="//xs:attributeGroup[@name='simpleLink']/xs:attribute[@name='type']">
+			<jaxb:property name="typeLink"/>
+		</jaxb:bindings>
+		-->
+		<jaxb:bindings node="//xs:attributeGroup[@name='languageAttributeGroup']/xs:attribute[@name='lang']">
+			<jaxb:property name="langAttr"/>
+		</jaxb:bindings>
+
+		<jaxb:bindings node="//xs:complexType[@name='nameDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeDef"/>
+		</jaxb:bindings>
+		<!--
+		<jaxb:bindings node="//xs:complexType[@name='abstractDefinition']/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typeAbs"/>
+		</jaxb:bindings>
+		-->
+		<jaxb:bindings node="//xs:complexType[@name='noteDefinition']/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typePlus3"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:element[@name='text']/xs:complexType/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typePlus4"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='physicalDescriptionNote']/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typePhysical"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='tableOfContentsDefinition']/xs:simpleContent/xs:extension[@base='stringPlusLanguage']/xs:attribute[@name='type']">
+			<jaxb:property name="typeTable"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='relatedItemDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeRel"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='subjectTitleInfoDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeTitle"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='subjectNameDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeSubject"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='titleInfoDefinition']/xs:attribute[@name='type']">
+			<jaxb:property name="typeTitleInfo"/>
+		</jaxb:bindings>
+    </jaxb:bindings>
+
+	<jaxb:bindings schemaLocation="mets/METSRights.xsd">
+			<jaxb:bindings>
+                    <namespace:prefix name="rights" />
+            </jaxb:bindings>
+
+		<jaxb:schemaBindings>
+                <jaxb:package name="com.gruppometa.data.mets.metsrights"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+	<jaxb:bindings schemaLocation="mets/mets-with-imports.xsd">
+		<jaxb:bindings>
+                <namespace:prefix name="mets" />
+        </jaxb:bindings>
+		<jaxb:schemaBindings>
+                <jaxb:package name="com.gruppometa.data.mets"/>
+        </jaxb:schemaBindings>
+		<jaxb:bindings node="//xs:element[@name='agent']/xs:complexType/xs:attribute[@name='ID']">
+			<jaxb:property name="agentId"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:attributeGroup[@name='ORDERLABELS']/xs:attribute[@name='LABEL']">
+			<jaxb:property name="labelOrderLabel"/>
+		</jaxb:bindings>
+		<!-- METS:xmlData mappare su mods -->
+	</jaxb:bindings>
+	<!--
+	<jaxb:bindings schemaLocation="mets/xlink.xsd">
+		<jaxb:bindings node="//xs:attributeGroup[@name='simpleLink']/xs:attribute[@name='type']">
+			<jaxb:property name="typeXlink"/>
+		</jaxb:bindings>
+	</jaxb:bindings>
+	-->
+</jaxb:bindings>

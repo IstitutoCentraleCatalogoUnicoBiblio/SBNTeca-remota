@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/oaisets.js" type="text/javascript"></script>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3 th:text="${#httpServletRequest.servletPath.contains('New') ? 'Nuovo Set' : 'Modifica Set'}" class="section_header"></h3></div>
+        		</div>
+        		<div class="span9 row">
+                    <div class="row-fluid">
+        				<div class="span10 offset1">
+        					<div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        				</div>
+        			</div>
+        			<div class="row-fluid">
+        				<form class="form-horizontal" id="goToSearchForm" th:action="@{oaisetBuildQuery}" method="POST">
+        					<input type="hidden" id="oaiset_id" name="oaiset_id" th:value="${oaiset.id}" />
+                            <input type="hidden" id="oaiset_update" name="oaiset_update" th:value="${#httpServletRequest.servletPath.contains('New') ? 'false' : 'true'}" />
+                            
+        					<div class="span10 offset1 well">
+        						<div class="control-group">
+        							<label title="Specifica un nome" class="control-label" for="oaiset_name"><b>Nome: </b></label>
+        							<input type="text" id="oaiset_name" name="oaiset_name" th:value="${oaiset.name}" class="span5" />
+        							<div id="oaiset_name_error" class="help-inline" style="display: none">Parametro obbligatorio</div>
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica un identificativo" class="control-label" for="oaiset_spec"><b>Identificativo (spec): </b></label>
+        							<input type="text" id="oaiset_spec" name="oaiset_spec" th:value="${oaiset.spec}" class="span5" />
+        							<div id="oaiset_spec_error" class="help-inline" style="display: none">Parametro obbligatorio</div>
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica una descrizione in italiano" class="control-label" for="oaiset_description_it">Descrizione italiana: </label>
+        							<input type="text" id="oaiset_description_it" name="oaiset_description_it" th:value="${oaiset.descriptionIt}" class="span5" />
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica una descrizione in inglese" class="control-label" for="oaiset_description_en">Descrizione inglese: </label>
+        							<input type="text" id="oaiset_description_en" name="oaiset_description_en" th:value="${oaiset.descriptionEn}" class="span5" />
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica un progetto" class="control-label" for="oaiset_project">Progetto/cartella: </label>
+        							<input type="text" id="oaiset_project" name="oaiset_project" th:value="${oaiset.project}" class="span5" />
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica i profili (MAG, METS, METS-Simple)" class="control-label" for="profile_checklist">Profili: </label>
+        							<label class="radio inline" for="oaiset_profile_mag"><input type="radio" id="oaiset_profile_mag" name="oaiset_main_profile" value="mag" th:checked="${checkMag}" /> MAG</label>
+        							<label class="radio inline" for="oaiset_profile_mets"><input type="radio" id="oaiset_profile_mets" name="oaiset_main_profile" value="mets" th:checked="${checkMets}" /> METS</label>
+									<label class="radio inline" for="oaiset_profile_mets_simple"><input type="radio" id="oaiset_profile_mets_simple" name="oaiset_main_profile" value="mets-simple" th:checked="${checkMetsSimple}" /> METS-SIMPLE</label>
+        							<label class="checkbox inline offset1" for="oaiset_profile_oai_dc"><input type="checkbox" id="oaiset_profile_oai_dc" name="oaiset_profile_oai_dc" value="oai_dc" th:checked="${checkOaiDc}" /> OAI DC</label>
+        						</div>
+        						<div class="control-group">
+        							<label title="Specifica la query Solr" class="control-label" for="oaiset_solrquery">Solr Query:  </label>
+        							<textarea id="oaiset_solrquery" class="span5" name="oaiset_solrquery" th:text="${oaiset.solrquery}"></textarea>
+        							<a title="Costruzione guidata query Solr" onclick="$('#goToSearchForm').submit();"><i class="icon-edit btn-icon"></i></a>
+        						</div>
+        						<div class="control-group"></div>
+	                            <div class="control-group"></div>
+	                            <div class="control-group"> 
+	                            	<input type="button" id="saveBtn" class="btn btn-primary" value="Salva" />
+                                    <input type="button" id="undoBtn" class="btn btn-default" onclick="window.location.href = 'oaisets';" value="Annulla" />
+	                            </div>
+        					</div>
+        				</form>
+        			</div>
+        			<div class="row-fluid">
+        				<div class="help-block row"></div>
+		                <div class="help-block row"></div>
+		                <div class="help-block row"></div>
+        				<div id="error" class="span10 offset1 alert alert-error" style="display: none"></div>
+        			</div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+    </body>
+</html>

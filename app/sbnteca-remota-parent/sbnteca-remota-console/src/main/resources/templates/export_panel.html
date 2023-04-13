@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/export_panel.js" type="text/javascript"></script>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Pannello Esporta</h3></div>
+        		</div>
+        		<div class="span9 row">
+                    <div class="span12">
+        				<table id="exportTable" class="table table-bordered table-striped"></table>
+        			</div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+        <div class="modal hide fade" id="delete-confirm">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4></h4>
+			</div>
+			<div class="modal-body">
+			    <p>Sei sicuro di voler procedere con la cancellazione?</p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noBtn">No</a>
+			    <a class="btn btn-primary" id="yesBtn">Si</a>
+			</div>
+        </div>
+    </body>
+</html>

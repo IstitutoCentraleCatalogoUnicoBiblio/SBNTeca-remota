@@ -1,0 +1,72 @@
+
+application:
+  title: "SbnTeca Remota"
+
+server:
+  tomcat:
+    remote-ip-header: localhost
+    protocol-header: http
+    
+  use-forward-headers: true
+  port: 9000
+  session-timeout: 43200
+
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+
+#zuul:
+#  routes:
+#    foos:
+#      path: /foos/**
+#      url: http://tecadigitalesystem:8080/TecaDigitale
+
+configs:
+  inMemory: false
+  uploadBaseDir: /var/lib/tecadigitaletest_root/upload
+  baseRest: http://localhost:8079/TecaDigitaleSystem/rest/
+  baseRestInternal: http://localhost:8079/TecaDigitaleSystem/rest/
+  rootBackend: http://localhost:8079/TecaDigitaleSystem/
+  rootFrontend: http://localhost:9000/
+  oaiBaseRest: http://localhost/metaoaicat/rest/
+  oaiHandler: http://localhost/metaoaicat/OAIHandlerDati
+
+api:
+  username: admin
+  password: test
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  tomcat:
+    remote-ip-header: localhost
+    protocol-header: http
+
+  use-forward-headers: true
+  port: 9000
+  session-timeout: 43200
+
+port_of_system: 8079
+backend_server_external: "http://localhost:${port_of_system}"
+backend_server_internal: "http://localhost:${port_of_system}"
+frontend_server_external: "http://localhoast:9000"
+
+configs:
+  inMemory: false
+  uploadBaseDir: /app-data/upload
+  baseRest: ${backend_server_external}/TecaDigitaleSystem/rest/
+  baseRestInternal: ${backend_server_internal}/TecaDigitaleSystem/rest/
+  rootBackend: ${backend_server_external}/TecaDigitaleSystem/
+  rootFrontend: ${frontend_server_external}
+  oaiBaseRest: http://localhost:8088/metaoaicat/rest/
+  oaiHandler: http://localhost:8088/metaoaicat/OAIHandlerDati
+

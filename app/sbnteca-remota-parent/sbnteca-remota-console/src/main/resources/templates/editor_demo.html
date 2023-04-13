@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Pagine - MetaCMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-ui/jquery-ui.1.10.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="libs/jquery-ui/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css" />
+    <script type="text/javascript" src="libs/dejavu/strict/dejavu.js"></script>
+    <script type="text/javascript" src="libs/Glizy.js"></script>
+    <script type="text/javascript" src="libs/locale/it.js">
+    </script>
+<script type="text/javascript">
+// <![CDATA[
+if ( typeof(Glizy) == "undefined" ) Glizy = {};
+    Glizy.baseUrl ="http://localhost";
+    Glizy.ajaxUrl = "ajax.php?pageId=glizycms_contentsedit&ajaxTarget=Page&action=";
+// ]]>
+</script>
+<script type="text/javascript" src="libs/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+Glizy.tinyMCE_plugins = "inlinepopups,style,searchreplace,contextmenu,paste,directionality,xhtmlxtras";
+Glizy.tinyMCE_btn1 = "formatselect,|,bold,italic,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,outdent,indent,|,cite,abbr,acronym";
+Glizy.tinyMCE_btn2 = "undo,redo,|,cut,copy,pastetext,pasteword,selectall,|,removeformat,cleanup,code,|,link,unlink,hr";
+Glizy.tinyMCE_btn3 = "";
+Glizy.tinyMCE_allowLinkTarget = false;
+Glizy.tinyMCE_validElements = "";
+// ]]>
+</script>
+<script type="text/javascript" src="libs/underscore-min.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEdit.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditStandard.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditCheckbox.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditRepeat.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditDate.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditDateTime.js"></script>
+<script type="text/javascript" src="libs/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="libs/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.it.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="libs/bootstrap-datetimepicker-master/css/datetimepicker.css" />
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditColorPicker.js"></script>
+<script type="text/javascript" src="libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" />
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditGUID.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditSelectFrom.js"></script>
+<script type="text/javascript" src="libs/select2/select2.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="libs/select2/select2.css" /><script type="text/javascript" src="js/formEdit2/GlizyFormEditTINYMCE.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditMediaPicker.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditFile.js"></script>
+<script type="text/javascript" src="libs/jquery.validVal-packed.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditPermission.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditPhotoGalleryCategory.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditCmsPagePicker.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditSelectPageType.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditUrl.js"></script>
+<script type="text/javascript" src="js/formEdit2/GlizyFormEditModalPage.js"></script>
+<script type="text/javascript" src="js/glizy-locale/it-IT.js"></script>
+<script type="text/javascript" src="libs/jquery.pnotify/jquery.pnotify.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="libs/jquery.pnotify/jquery.pnotify.default.css" />
+<script type="text/javascript">
+// <![CDATA[
+jQuery(function(){
+    if ( Glizy.tinyMCE_options )
+    {
+        Glizy.tinyMCE_options.urls = {"ajaxUrl":"http:\/\/localhost\/ajax.php?pageId=glizycms_contentsedit&ajaxTarget=pageEdit&action=","mediaPicker":"http:\/\/localhost\/index.php?pageId=mediaarchive_picker&mediaType=ALL&","mediaPickerTiny":"http:\/\/localhost\/index.php?pageId=MediaArchive_pickerTiny&mediaType=ALL&","imagePickerTiny":"http:\/\/localhost\/index.php?pageId=MediaArchive_pickerTiny&mediaType=IMAGE&","imageResizer":"getImage.php?id=#id#&w=#w#&h=#h#&c=0&co=1&f=0&t=0&.jpg","root":"http:\/\/localhost\/"};
+    }
+
+    var myFormEdit = Glizy.oop.create("glizy.FormEdit", 'pageEdit', {
+        AJAXAction: "ajax.php?pageId=glizycms_contentsedit&ajaxTarget=pageEdit&action=",
+        mediaPicker: "",
+        imageResizer: "getImage.php?id=#id#&w=150&h=150&c=1&co=1&f=0&t=0&.jpg",
+        formData: {"__id":1,"__title":"Home","__url":null,"__comment":"","__indexFields":{},"slider":{"title":["pallo","Titolo"],"subtitle":["","sottotitolo"],"image":["{\"id\":2,\"filename\":\"2c77881a147b653bb8b10b44a7a4b0ea_knot-nature-textures-wood-texture-1920x1080-wallpaper.jpg\",\"title\":\"knot-nature-textures-wood-texture-1920x1080-wallpaper\",\"src\":\"getImage.php?id=2&w=150&h=150&c=1&co=1&f=0&t=0&.jpg\",\"category\":[],\"author\":\"\",\"date\":\"\",\"copyright\":\"\"}","{\"id\":3,\"filename\":\"2c77881a147b653bb8b10b44a7a4b0ea_honda-motorbikes-shadows-sunset-1920x1080-wallpaper.jpg\",\"title\":\"honda-motorbikes-shadows-sunset-1920x1080-wallpaper\",\"src\":\"getImage.php?id=3&w=150&h=150&c=1&co=1&f=0&t=0&.jpg\",\"category\":[],\"author\":\"\",\"date\":\"\",\"copyright\":\"\"}"],"linkType":["ext","int"],"linkInt":["","internal:16"],"linkExt":["http:\/\/www.google.com",""]}},
+
+        lang: GlizyLocale.FormEdit
+    });
+});
+// ]]>
+</script>
+<script type="text/javascript" src="libs/Glizy_tiny_mce.js"></script></head>
+<body>
+    <div class="box-content box-padding">
+        <div class="section-title"><h1>Modifica pagina: <em>Home</em></h1></div>
+        <div id="message-box"></div>
+        <form  id="pageEdit" action="" method="post" class="form-horizontal row-fluid stickyForm formEdit"><div class="formItemHidden"><input name="__id" id="__id" type="hidden" value="1"/></div><div class="formItemHidden"><input name="__indexFields" id="__indexFields" type="hidden" value="{}"/></div>
+    <div class="control-group">
+        <label for="__title"  class="control-label required">Titolo</label>
+        <div class="controls">
+            <input  id="__title" name="__title" title="Titolo" class="span11 required" type="text" size="90" value="Home"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="__url"  class="control-label ">URL</label>
+        <div class="controls">
+            <input  id="__url" name="__url" title="URL" class="span11 " type="text" size="90" value=""/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-text"  class="control-label ">Testo</label>
+        <div class="controls">
+            <textarea  id="pageEdit-text" name="text" title="Testo" class="span11 " cols="75" rows="20" wrap="off" data-type="tinymce"></textarea>
+        </div>
+    </div>
+    <fieldset  id="slider" data-type="repeat" data-repeatMax="100" data-collapsable="true"><legend style="font-weight:normal">Slider immagini</legend>
+    <div class="control-group">
+        <label for="pageEdit-title"  class="control-label required">Titolo</label>
+        <div class="controls">
+            <input  id="pageEdit-title" name="title" title="Titolo" class="span11 required" type="text" size="50" value=""/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-subtitle"  class="control-label ">Sottotitolo</label>
+        <div class="controls">
+            <input  id="pageEdit-subtitle" name="subtitle" title="Sottotitolo" class="span11 " type="text" size="50" value=""/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-image"  class="control-label ">Image</label>
+        <div class="controls">
+            <input  id="pageEdit-image" name="image" title="Image" class="span11 " type="text" value="" data-type="mediapicker" data-mediatype="IMAGE" data-preview="true"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-linkType"  class="control-label ">Tipo collegamento</label>
+        <div class="controls">
+            <select  id="pageEdit-linkType" name="linkType" class="span11" data-target="linkInt,linkExt" data-val_0="1,0" data-val_1="0,1"><option value="int" selected="selected">Link interno</option><option value="ext">Link esterno</option></select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-linkInt"  class="control-label required">Pagina collegata</label>
+        <div class="controls">
+            <input  id="pageEdit-linkInt" name="linkInt" title="Pagina collegata" class="span11 required" value="null" data-type="CmsPagePicker" data-controllername="org.glizycms.contents.controllers.autocomplete.ajax.PagePicker" data-multiple="false"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="pageEdit-linkExt"  class="control-label required">URL</label>
+        <div class="controls">
+            <input  id="pageEdit-linkExt" name="linkExt" title="URL" class="span11 required" type="text" size="50" value=""/>
+        </div>
+    </div>
+    </fieldset>
+    <div class="formButtons" id="c725a666c118e92ec9e246aacdd6f8387">
+        <div class="content">
+            <input  id="c08cecffc28771fad6714269efe0b61b9" name="c08cecffc28771fad6714269efe0b61b9" class="btn btn-primary js-glizycms-save" type="button" value="Salva" data-action="save" />
+        </div>
+    </div>
+    </form>
+     </div>
+    </body>
+</html>

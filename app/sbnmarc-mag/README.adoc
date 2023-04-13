@@ -1,0 +1,60 @@
+= Libreria sbnmarc-mag
+
+== Storia delle modifiche
+
+* 2018-10-24: 1.0.1 - implementato redirect nella richiesta a OPAC del UNIMARC
+* 2019: 1.0 - versione di base
+* 2022-03-31: 2.0 - versione di base, aggiunto supporto del formato Mods
+
+== Introduzione
+
+La libreria converte un documento SBNMARC o UNIMARC
+nel formato Mag (sezione bib).
+
+Il formato restituito è un XML MAG solamente con la sezione BIB.
+
+[source, java]
+----
+
+import com.gruppometa.sbnmarc.mag.*;
+
+    MagTransformer magTransformer = new MagTransformer();
+
+    /**
+     * unimarc da OPAC SBN
+     */
+    UnimarcClient unimarcClient = new UnimarcClient();
+    String mag = null;
+
+    try {
+        mag = unimarcClient.getOpacSbn2Mag(magTransformer, "NAP0668034");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    System.out.println(mag);
+
+    /**
+     * SBNMARC dal polo
+     */
+    SbnMarcClient sbnMarcClient = new SbnMarcClient();
+    sbnMarcClient.setUsername("pmdigi");
+    sbnMarcClient.setUrl("https://sbnweb.bnnonline.it/SbnMarcWeb/SbnMarcTest");
+
+    String mag2 = null;
+    try {
+        mag2 = sbnMarcClient.getSbnMarc2Mag(magTransformer, "NAP0668034");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    System.out.println(mag2);
+
+    String mods = null;
+    try {
+        mods = sbnMarcClient.getSbnMarc2Mods(magTransformer, "NAP0668034");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    System.out.println(mods);
+
+----

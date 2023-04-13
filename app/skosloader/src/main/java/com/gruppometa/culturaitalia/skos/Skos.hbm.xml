@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"	
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+	Configurazione per gli oggetti della gestione interna del sistema 
+ -->	
+<hibernate-mapping package="com.gruppometa.culturaitalia.skos">
+     <class name="SkosItem" table="skositem">
+        <id name="id">
+            <generator class="increment"/>
+        </id>        
+        <property name="name" type="string"/>
+        <property name="labelIt" type="string"/>
+        <property name="labelEn" type="string"/>
+        <property name="altLabelIt" type="string"/>
+        <property name="altLabelEn" type="string"/>
+        <property name="broader" type="string"/>
+        <property name="version" type="string"/>
+       	<property name="linked" type="string"/>
+        <property name="removed" type="string"/>
+        <property name="relatedMatch" type="string"/> 
+        <property name="revision" type="int">
+        	<column name="revision" default="0"></column>
+        </property>
+        <property name="thesaurusVersion" type="string"/>
+        <property name="key" column="chiave" type="string"/>
+        <list name="themes" table="skositem_theme" lazy="false" cascade="delete">
+			<key column="id" />
+			<index column="idx" />
+			<element type="string" column="theme" />
+		</list>
+		 
+    </class>
+     <class name="Thesaurus" table="thesaurus">
+     	<id name="id">
+     		<generator class="native"></generator>
+     	</id>
+     	<property name="version" type="string"/>
+     	<property name="namespace" type="string"/>
+     	<property name="revision" type="int"/>
+     </class>
+</hibernate-mapping>

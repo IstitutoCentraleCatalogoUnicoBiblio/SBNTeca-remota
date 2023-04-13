@@ -1,0 +1,12 @@
+.modaal-ajax .modaal-content .modaal-content-container {
+	padding: 0px;
+}
+
+.modaal-ajax .modaal-inner-wrapper .modaal-container {
+	background: none;
+	width: initial;
+	max-width: 60em;
+	height: initial;
+	max-height: 60em;
+	overflow: auto;
+}

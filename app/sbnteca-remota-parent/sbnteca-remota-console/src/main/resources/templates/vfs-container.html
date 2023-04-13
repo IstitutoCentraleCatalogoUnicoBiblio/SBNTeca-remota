@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/vfs-container.js" type="text/javascript"></script>
+		<script src="js/vfs-common.js" type="text/javascript"></script>
+		<div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Cartella: <a th:href="@{vfs(idDirectory=${param['idDirectory']})}">[[${param['idDirectory']}]]</a> / Contenitore: [[${param['idContainer']}]]</h3></div>
+        		</div>
+        		<div class="span9 row">
+					<!--
+        			<div class="row-fluid">
+                   		<div class="span4">
+                   			<img src="images/add.png" width="14" height="14" />
+                       		<a class="btn-link" onclick="createModContainer(undefined, 'container')">Crea nuovo contenitore</a>
+                   		</div>
+                   	</div>
+                   	<div class="help-block row"></div>
+                    <div class="help-block row"></div>
+                    <div class="help-block row"></div>
+                   	-->
+                    <div class="row-fluid">
+                    	<div class="span10">
+                            <table id="vfsTable" class="table table-bordered table-striped"></table>
+                            <div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+		                    <div class="help-block row"></div>
+                            <div class="alert alert-error" id="error" style="display: none"></div>
+							<div class="alert alert-info" id="info" style="display: none"></div>
+                        </div>
+                    </div>
+					<div class="row-fluid">
+						<div class="page-menu-header"><h3 id="labelContainer">Contenitore [[${param['idContainer']}]]</h3></div>
+					</div>
+					<div class="row-fluid">
+						<div class="span4">
+							<img src="images/add.png" width="14" height="14" />
+							<a class="btn-link" onclick="createModContainer(undefined,'object')">Crea oggetto digitale</a>
+							<div id="labelUpload">Trascina qui</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span10">
+							<table id="containersTable" class="table table-bordered table-striped"></table>
+							<div class="help-block row"></div>
+							<div class="help-block row"></div>
+							<div class="help-block row"></div>
+							<div class="alert alert-error" id="errorContainer" style="display: none"></div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+        <div class="modal hide fade" id="delete-confirm">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4></h4>
+			</div>
+			<div class="modal-body">
+			    <p>Sei sicuro di voler procedere con la cancellazione?</p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noBtn">No</a>
+			    <a class="btn btn-primary" id="yesBtn">Si</a>
+			</div>
+        </div>
+		<div class="modal hide fade" id="mets-create-confirm">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4></h4>
+			</div>
+			<div class="modal-body">
+				<p>Sei sicuro di voler procedere con la creazione del METS?</p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-default" id="noBtnMets">No</a>
+				<a class="btn btn-primary" id="yesBtnMets">Si</a>
+			</div>
+		</div>
+		<div class="modal hide fade" id="mag-create-confirm">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4></h4>
+			</div>
+			<div class="modal-body">
+				<p>Sei sicuro di voler procedere con la creazione del MAG?</p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-default" id="noBtnMag">No</a>
+				<a class="btn btn-primary" id="yesBtnMag">Si</a>
+			</div>
+		</div>
+		<div th:replace="teca_digitale :: modifyContainer"></div>
+		<div class="modal hide fade" id="editor-confirm">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4>Modalità Editor</h4>
+			</div>
+			<div class="modal-body">
+				<p><div class="alert alert-warning">Operazioni di modifica del MAG attraverso l'editor comporteranno la sostituzione
+				dell'identificativo attuale ed il passaggio del MAG in bozza. Sei sicuro di continuare?</div></p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-default" id="noBtnEdit">No</a>
+				<a class="btn btn-primary" id="yesBtnEdit">Si</a>
+			</div>
+		</div>
+	</body>
+</html>

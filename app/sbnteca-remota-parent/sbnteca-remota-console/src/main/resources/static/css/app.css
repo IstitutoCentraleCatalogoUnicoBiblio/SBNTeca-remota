@@ -1,0 +1,133 @@
+.ui-button:focus { outline:none !important }
+#container.with-treeview{
+    height: 100%;
+    overflow: scroll;
+}
+#pageEdit .ui-autocomplete-input {
+    border: 1px solid #1BBC9B !important;
+}
+#pageEdit .GFERowHandler{
+    height:inherit;
+}
+#treeview-title{
+    margin-top:0;
+}
+#treeview-dropdown .dropdown-menu li>a:hover{
+    background-color: #EEE;
+}
+#mediapicker-tree li:not([data-type="directory"]) {
+	height: 50px;
+	padding-bottom: 10px;
+}
+#mediapicker-tree li:not([data-type="directory"]) .jstree-anchor{
+	height:60px;
+}
+#mediapicker-tree li:not([data-type="directory"]) i.jstree-themeicon-custom{
+	width:50px;
+	height:50px;
+	margin: 5px;
+    border: 1px solid #ddd;
+    background-size: 100% !important;
+    vertical-align: middle;
+}
+.jstree-themeicon-custom-tooltip{
+	width:150px;
+}
+#mag-tree .jstree-node{
+	position:relative;
+}
+#mag-tree .btn-delete-node{
+	display:none;
+	position: absolute;
+    top: 0px;
+    right: 5px;
+    z-index: 10;
+    font-size: 16px;
+    color: #c94e4e;
+    cursor:pointer;
+    background: #f6f6f6;
+}
+#gallery.thumbnails li.entry-thumb{
+	width: 150px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+#gallery.thumbnails li.entry-thumb .galleryImg{
+	cursor:pointer;
+}
+#gallery.thumbnails li.entry-thumb .cancel-thumbnail{
+	text-align:right;
+}
+.gallery-thumb-dialog{
+	margin-top:30px;
+	text-align: center;
+}
+.gallery-thumb-dialog img{
+	max-height:100%;
+	max-width:100%;
+}
+.pagination ul li a{
+	color: #1BBC9B;
+}
+.ui-pnotify.stack-modal {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    background: rgba(0,0,0,0.5);
+}
+.ui-pnotify.stack-modal .ui-pnotify-container {
+    height: auto;
+    margin: 0 auto;
+    width: 300px;
+}
+
+/*css GlizyFormRepeater*/
+fieldset.GFEFieldset fieldset.GFEFieldset {padding: 10px;}.GFERowDelete{padding: 3px 5px;background: #c9302c;font-size: 18px;color: #fff;border-radius: 5px;}.GFERowEdit{padding: 3px 5px;background: #337ab7;font-size: 18px;color: #fff;border-radius: 5px;}.GFERowCollapsed {position: relative;}.GFERecordLabel {display: block;position: absolute;left: 80px;top: 9px;right: 65px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}.GFERowExpanded{position: fixed; top:30px; bottom:30px; left: 30px;right: 30px;overflow: scroll;padding: 10px;background: #fff;max-height:90%;}
+
+.entry-thumb .thumbnail{
+    padding: 8px;
+    height: 160px;
+    border:none;
+}
+.galleryTitle {
+    font-weight: bold;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.galleryBoxBtn{
+    background: #f0f0f0;
+    text-align: right;
+    padding: 3px 0;
+}
+.gallery-btn{
+    margin:0 3px;
+    padding: 3px 8px;
+    font-size: 16px;
+}
+
+#piece .GFERowContainer .controls, #identifiers .GFERowContainer .controls {
+    position:relative;
+}
+
+#piece .GFERowContainer .controls .GFEIconInfo, #identifiers .GFERowContainer .controls .GFEIconInfo{
+    padding: 3px 5px;
+    background: #337ab7;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 5px;
+    top: 0px;
+}
+#identifiers .GFERowContainer .controls .GFEIconInfo{
+    right: 35px;
+    padding: 3px 5px 1px;
+    cursor: pointer;
+}
+
+.mediapickerInfoDialog{
+    bottom: 0px;
+    overflow: scroll !important;
+    font-size: 14px !important;
+}

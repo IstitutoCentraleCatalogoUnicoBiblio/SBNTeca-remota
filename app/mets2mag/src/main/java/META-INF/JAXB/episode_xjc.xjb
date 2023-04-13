@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.2 
+Vedere <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+Generato il: 2023.02.09 alle 11:27:53 AM CET 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.loc.gov/METS/">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets"/>
+    </schemaBindings>
+    <bindings scd="~tns:metsType">
+      <class ref="com.gruppometa.data.mets.MetsType"/>
+    </bindings>
+    <bindings scd="~tns:fileType">
+      <class ref="com.gruppometa.data.mets.FileType"/>
+    </bindings>
+    <bindings scd="~tns:structLinkType">
+      <class ref="com.gruppometa.data.mets.StructLinkType"/>
+    </bindings>
+    <bindings scd="~tns:divType">
+      <class ref="com.gruppometa.data.mets.DivType"/>
+    </bindings>
+    <bindings scd="~tns:mdSecType">
+      <class ref="com.gruppometa.data.mets.MdSecType"/>
+    </bindings>
+    <bindings scd="tns:mets">
+      <class ref="com.gruppometa.data.mets.Mets"/>
+    </bindings>
+    <bindings scd="~tns:amdSecType">
+      <class ref="com.gruppometa.data.mets.AmdSecType"/>
+    </bindings>
+    <bindings scd="~tns:structMapType">
+      <class ref="com.gruppometa.data.mets.StructMapType"/>
+    </bindings>
+    <bindings scd="~tns:behaviorSecType">
+      <class ref="com.gruppometa.data.mets.BehaviorSecType"/>
+    </bindings>
+    <bindings scd="~tns:fileGrpType">
+      <class ref="com.gruppometa.data.mets.FileGrpType"/>
+    </bindings>
+    <bindings scd="~tns:parType">
+      <class ref="com.gruppometa.data.mets.ParType"/>
+    </bindings>
+    <bindings scd="~tns:seqType">
+      <class ref="com.gruppometa.data.mets.SeqType"/>
+    </bindings>
+    <bindings scd="~tns:areaType">
+      <class ref="com.gruppometa.data.mets.AreaType"/>
+    </bindings>
+    <bindings scd="~tns:behaviorType">
+      <class ref="com.gruppometa.data.mets.BehaviorType"/>
+    </bindings>
+    <bindings scd="~tns:objectType">
+      <class ref="com.gruppometa.data.mets.ObjectType"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.loc.gov/mods/v3">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mods"/>
+    </schemaBindings>
+    <bindings scd="~tns:copyInformationDefinition">
+      <class ref="com.gruppometa.data.mods.CopyInformation"/>
+    </bindings>
+    <bindings scd="~tns:modsDefinition">
+      <class ref="com.gruppometa.data.mods.Mods"/>
+    </bindings>
+    <bindings scd="~tns:abstractDefinition">
+      <class ref="com.gruppometa.data.mods.Abstract"/>
+    </bindings>
+    <bindings scd="~tns:stringPlusLanguage">
+      <class ref="com.gruppometa.data.mods.StringPlusLanguage"/>
+    </bindings>
+    <bindings scd="~tns:accessConditionDefinition">
+      <class ref="com.gruppometa.data.mods.AccessCondition"/>
+    </bindings>
+    <bindings scd="~tns:extensionDefinition">
+      <class ref="com.gruppometa.data.mods.ExtensionDefinition"/>
+    </bindings>
+    <bindings scd="~tns:classificationDefinition">
+      <class ref="com.gruppometa.data.mods.Classification"/>
+    </bindings>
+    <bindings scd="~tns:stringPlusLanguagePlusAuthority">
+      <class ref="com.gruppometa.data.mods.StringPlusLanguagePlusAuthority"/>
+    </bindings>
+    <bindings scd="~tns:genreDefinition">
+      <class ref="com.gruppometa.data.mods.Genre"/>
+    </bindings>
+    <bindings scd="~tns:identifierDefinition">
+      <class ref="com.gruppometa.data.mods.IdentifierDefinition"/>
+    </bindings>
+    <bindings scd="~tns:languageDefinition">
+      <class ref="com.gruppometa.data.mods.LanguageDefinition"/>
+    </bindings>
+    <bindings scd="~tns:locationDefinition">
+      <class ref="com.gruppometa.data.mods.Location"/>
+    </bindings>
+    <bindings scd="~tns:physicalLocationDefinition">
+      <class ref="com.gruppometa.data.mods.PhysicalLocation"/>
+    </bindings>
+    <bindings scd="~tns:urlDefinition">
+      <class ref="com.gruppometa.data.mods.Url"/>
+    </bindings>
+    <bindings scd="~tns:holdingSimpleDefinition">
+      <class ref="com.gruppometa.data.mods.HoldingSimple"/>
+    </bindings>
+    <bindings scd="~tns:formDefinition">
+      <class ref="com.gruppometa.data.mods.Form"/>
+    </bindings>
+    <bindings scd="~tns:enumerationAndChronologyDefinition">
+      <class ref="com.gruppometa.data.mods.EnumerationAndChronology"/>
+    </bindings>
+    <bindings scd="~tns:itemIdentifierDefinition">
+      <class ref="com.gruppometa.data.mods.ItemIdentifier"/>
+    </bindings>
+    <bindings scd="~tns:nameDefinition">
+      <class ref="com.gruppometa.data.mods.Name"/>
+    </bindings>
+    <bindings scd="~tns:namePartDefinition">
+      <class ref="com.gruppometa.data.mods.NamePart"/>
+    </bindings>
+    <bindings scd="~tns:roleDefinition">
+      <class ref="com.gruppometa.data.mods.Role"/>
+    </bindings>
+    <bindings scd="~tns:roleTermDefinition">
+      <class ref="com.gruppometa.data.mods.RoleTerm"/>
+    </bindings>
+    <bindings scd="~tns:alternativeNameDefinition">
+      <class ref="com.gruppometa.data.mods.AlternativeName"/>
+    </bindings>
+    <bindings scd="~tns:noteDefinition">
+      <class ref="com.gruppometa.data.mods.NoteDefinition"/>
+    </bindings>
+    <bindings scd="~tns:originInfoDefinition">
+      <class ref="com.gruppometa.data.mods.OriginInfo"/>
+    </bindings>
+    <bindings scd="~tns:placeDefinition">
+      <class ref="com.gruppometa.data.mods.Place"/>
+    </bindings>
+    <bindings scd="~tns:placeTermDefinition">
+      <class ref="com.gruppometa.data.mods.PlaceTerm"/>
+    </bindings>
+    <bindings scd="~tns:publisherDefinition">
+      <class ref="com.gruppometa.data.mods.Publisher"/>
+    </bindings>
+    <bindings scd="~tns:stringPlusLanguagePlusSupplied">
+      <class ref="com.gruppometa.data.mods.StringPlusLanguagePlusSupplied"/>
+    </bindings>
+    <bindings scd="~tns:dateDefinition">
+      <class ref="com.gruppometa.data.mods.DateDefinition"/>
+    </bindings>
+    <bindings scd="~tns:dateOtherDefinition">
+      <class ref="com.gruppometa.data.mods.DateOther"/>
+    </bindings>
+    <bindings scd="~tns:partDefinition">
+      <class ref="com.gruppometa.data.mods.Part"/>
+    </bindings>
+    <bindings scd="~tns:detailDefinition">
+      <class ref="com.gruppometa.data.mods.Detail"/>
+    </bindings>
+    <bindings scd="~tns:extentDefinition">
+      <class ref="com.gruppometa.data.mods.ExtentDefinition"/>
+    </bindings>
+    <bindings scd="tns:text">
+      <class ref="com.gruppometa.data.mods.Text"/>
+    </bindings>
+    <bindings scd="~tns:physicalDescriptionDefinition">
+      <class ref="com.gruppometa.data.mods.PhysicalDescription"/>
+    </bindings>
+    <bindings scd="tns:extent">
+      <class ref="com.gruppometa.data.mods.Extent"/>
+    </bindings>
+    <bindings scd="~tns:physicalDescriptionNote">
+      <class ref="com.gruppometa.data.mods.PhysicalDescriptionNote"/>
+    </bindings>
+    <bindings scd="~tns:recordInfoDefinition">
+      <class ref="com.gruppometa.data.mods.RecordInfo"/>
+    </bindings>
+    <bindings scd="~tns:recordIdentifierDefinition">
+      <class ref="com.gruppometa.data.mods.RecordIdentifier"/>
+    </bindings>
+    <bindings scd="~tns:relatedItemDefinition">
+      <class ref="com.gruppometa.data.mods.RelatedItem"/>
+    </bindings>
+    <bindings scd="~tns:subjectDefinition">
+      <class ref="com.gruppometa.data.mods.Subject"/>
+    </bindings>
+    <bindings scd="~tns:temporalDefinition">
+      <class ref="com.gruppometa.data.mods.Temporal"/>
+    </bindings>
+    <bindings scd="~tns:subjectTitleInfoDefinition">
+      <class ref="com.gruppometa.data.mods.SubjectTitleInfoDefinition"/>
+    </bindings>
+    <bindings scd="~tns:subjectNameDefinition">
+      <class ref="com.gruppometa.data.mods.SubjectNameDefinition"/>
+    </bindings>
+    <bindings scd="~tns:geographicCodeDefinition">
+      <class ref="com.gruppometa.data.mods.GeographicCode"/>
+    </bindings>
+    <bindings scd="~tns:hierarchicalGeographicDefinition">
+      <class ref="com.gruppometa.data.mods.HierarchicalGeographic"/>
+    </bindings>
+    <bindings scd="~tns:hierarchicalPart">
+      <class ref="com.gruppometa.data.mods.HierarchicalPart"/>
+    </bindings>
+    <bindings scd="~tns:regionDefinition">
+      <class ref="com.gruppometa.data.mods.Region"/>
+    </bindings>
+    <bindings scd="~tns:citySectionDefinition">
+      <class ref="com.gruppometa.data.mods.CitySection"/>
+    </bindings>
+    <bindings scd="~tns:areaDefinition">
+      <class ref="com.gruppometa.data.mods.Area"/>
+    </bindings>
+    <bindings scd="~tns:cartographicsDefinition">
+      <class ref="com.gruppometa.data.mods.Cartographics"/>
+    </bindings>
+    <bindings scd="~tns:tableOfContentsDefinition">
+      <class ref="com.gruppometa.data.mods.TableOfContents"/>
+    </bindings>
+    <bindings scd="~tns:targetAudienceDefinition">
+      <class ref="com.gruppometa.data.mods.TargetAudience"/>
+    </bindings>
+    <bindings scd="~tns:titleInfoDefinition">
+      <class ref="com.gruppometa.data.mods.TitleInfo"/>
+    </bindings>
+    <bindings scd="tns:nonSort">
+      <class ref="com.gruppometa.data.mods.NonSort"/>
+    </bindings>
+    <bindings scd="~tns:typeOfResourceDefinition">
+      <class ref="com.gruppometa.data.mods.TypeOfResource"/>
+    </bindings>
+    <bindings scd="~tns:modsCollectionDefinition">
+      <class ref="com.gruppometa.data.mods.ModsCollection"/>
+    </bindings>
+    <bindings scd="~tns:languageTermDefinition">
+      <class ref="com.gruppometa.data.mods.LanguageTerm"/>
+    </bindings>
+    <bindings scd="~tns:scriptTermDefinition">
+      <class ref="com.gruppometa.data.mods.ScriptTerm"/>
+    </bindings>
+    <bindings scd="~tns:codeOrText">
+      <typesafeEnumClass ref="com.gruppometa.data.mods.CodeOrText"/>
+    </bindings>
+    <bindings scd="~tns:issuanceDefinition">
+      <typesafeEnumClass ref="com.gruppometa.data.mods.IssuanceDefinition"/>
+    </bindings>
+    <bindings scd="~tns:reformattingQualityDefinition">
+      <typesafeEnumClass ref="com.gruppometa.data.mods.ReformattingQualityDefinition"/>
+    </bindings>
+    <bindings scd="~tns:digitalOriginDefinition">
+      <typesafeEnumClass ref="com.gruppometa.data.mods.DigitalOriginDefinition"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.loc.gov/videoMD/">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets.videomd"/>
+    </schemaBindings>
+    <bindings scd="~tns:fileDataType">
+      <class ref="com.gruppometa.data.mets.videomd.FileDataType"/>
+    </bindings>
+    <bindings scd="~tns:videoType">
+      <class ref="com.gruppometa.data.mets.videomd.VideoType"/>
+    </bindings>
+    <bindings scd="~tns:mediaDataType">
+      <class ref="com.gruppometa.data.mets.videomd.MediaDataType"/>
+    </bindings>
+    <bindings scd="~tns:trackDataType">
+      <class ref="com.gruppometa.data.mets.videomd.TrackDataType"/>
+    </bindings>
+    <bindings scd="~tns:physicalDataType">
+      <class ref="com.gruppometa.data.mets.videomd.PhysicalDataType"/>
+    </bindings>
+    <bindings scd="~tns:videoInfoType">
+      <class ref="com.gruppometa.data.mets.videomd.VideoInfoType"/>
+    </bindings>
+    <bindings scd="~tns:calibrationInfoType">
+      <class ref="com.gruppometa.data.mets.videomd.CalibrationInfoType"/>
+    </bindings>
+    <bindings scd="~tns:messageDigestType">
+      <class ref="com.gruppometa.data.mets.videomd.MessageDigestType"/>
+    </bindings>
+    <bindings scd="~tns:variableRateType">
+      <class ref="com.gruppometa.data.mets.videomd.VariableRateType"/>
+    </bindings>
+    <bindings scd="~tns:compressionType">
+      <class ref="com.gruppometa.data.mets.videomd.CompressionType"/>
+    </bindings>
+    <bindings scd="~tns:dimensionsType">
+      <class ref="com.gruppometa.data.mets.videomd.DimensionsType"/>
+    </bindings>
+    <bindings scd="~tns:dtvType">
+      <class ref="com.gruppometa.data.mets.videomd.DtvType"/>
+    </bindings>
+    <bindings scd="~tns:formatType">
+      <class ref="com.gruppometa.data.mets.videomd.FormatType"/>
+    </bindings>
+    <bindings scd="~tns:codecType">
+      <class ref="com.gruppometa.data.mets.videomd.CodecType"/>
+    </bindings>
+    <bindings scd="~tns:string.version">
+      <class ref="com.gruppometa.data.mets.videomd.StringVersion"/>
+    </bindings>
+    <bindings scd="~tns:frameType">
+      <class ref="com.gruppometa.data.mets.videomd.FrameType"/>
+    </bindings>
+    <bindings scd="~tns:materialType">
+      <class ref="com.gruppometa.data.mets.videomd.MaterialType"/>
+    </bindings>
+    <bindings scd="~tns:timecodeInfoType">
+      <class ref="com.gruppometa.data.mets.videomd.TimecodeInfoType"/>
+    </bindings>
+    <bindings scd="~tns:trackingInfoType">
+      <class ref="com.gruppometa.data.mets.videomd.TrackingInfoType"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.loc.gov/audioMD/">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets.audiomd"/>
+    </schemaBindings>
+    <bindings scd="~tns:soundChannelMapType">
+      <class ref="com.gruppometa.data.mets.audiomd.SoundChannelMapType"/>
+    </bindings>
+    <bindings scd="~tns:audioType">
+      <class ref="com.gruppometa.data.mets.audiomd.AudioType"/>
+    </bindings>
+    <bindings scd="~tns:fileDataType">
+      <class ref="com.gruppometa.data.mets.audiomd.FileDataType"/>
+    </bindings>
+    <bindings scd="~tns:physicalDataType">
+      <class ref="com.gruppometa.data.mets.audiomd.PhysicalDataType"/>
+    </bindings>
+    <bindings scd="~tns:audioInfoType">
+      <class ref="com.gruppometa.data.mets.audiomd.AudioInfoType"/>
+    </bindings>
+    <bindings scd="~tns:calibrationInfoType">
+      <class ref="com.gruppometa.data.mets.audiomd.CalibrationInfoType"/>
+    </bindings>
+    <bindings scd="~tns:messageDigestType">
+      <class ref="com.gruppometa.data.mets.audiomd.MessageDigestType"/>
+    </bindings>
+    <bindings scd="~tns:compressionType">
+      <class ref="com.gruppometa.data.mets.audiomd.CompressionType"/>
+    </bindings>
+    <bindings scd="~tns:dimensionsType">
+      <class ref="com.gruppometa.data.mets.audiomd.DimensionsType"/>
+    </bindings>
+    <bindings scd="~tns:materialType">
+      <class ref="com.gruppometa.data.mets.audiomd.MaterialType"/>
+    </bindings>
+    <bindings scd="~tns:trackingInfoType">
+      <class ref="com.gruppometa.data.mets.audiomd.TrackingInfoType"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.loc.gov/mix/v20">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets.mix"/>
+    </schemaBindings>
+    <bindings scd="~tns:ChangeHistoryType">
+      <class ref="com.gruppometa.data.mets.mix.ChangeHistoryType"/>
+    </bindings>
+    <bindings scd="~tns:ImageAssessmentMetadataType">
+      <class ref="com.gruppometa.data.mets.mix.ImageAssessmentMetadataType"/>
+    </bindings>
+    <bindings scd="~tns:ImageCaptureMetadataType">
+      <class ref="com.gruppometa.data.mets.mix.ImageCaptureMetadataType"/>
+    </bindings>
+    <bindings scd="~tns:BasicImageInformationType">
+      <class ref="com.gruppometa.data.mets.mix.BasicImageInformationType"/>
+    </bindings>
+    <bindings scd="~tns:BasicDigitalObjectInformationType">
+      <class ref="com.gruppometa.data.mets.mix.BasicDigitalObjectInformationType"/>
+    </bindings>
+    <bindings scd="tns:mix">
+      <class ref="com.gruppometa.data.mets.mix.Mix"/>
+    </bindings>
+    <bindings scd="~tns:mixType">
+      <class ref="com.gruppometa.data.mets.mix.MixType"/>
+    </bindings>
+    <bindings scd="~tns:extensionType">
+      <class ref="com.gruppometa.data.mets.mix.ExtensionType"/>
+    </bindings>
+    <bindings scd="~tns:stringType">
+      <class ref="com.gruppometa.data.mets.mix.StringType"/>
+    </bindings>
+    <bindings scd="~tns:integerType">
+      <class ref="com.gruppometa.data.mets.mix.IntegerType"/>
+    </bindings>
+    <bindings scd="~tns:positiveIntegerType">
+      <class ref="com.gruppometa.data.mets.mix.PositiveIntegerType"/>
+    </bindings>
+    <bindings scd="~tns:URIType">
+      <class ref="com.gruppometa.data.mets.mix.URIType"/>
+    </bindings>
+    <bindings scd="~tns:realType">
+      <class ref="com.gruppometa.data.mets.mix.RealType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfNonNegativeRealType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfNonNegativeRealType"/>
+    </bindings>
+    <bindings scd="~tns:nonNegativeIntegerType">
+      <class ref="com.gruppometa.data.mets.mix.NonNegativeIntegerType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfPositiveRealType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfPositiveRealType"/>
+    </bindings>
+    <bindings scd="~tns:decimalType">
+      <class ref="com.gruppometa.data.mets.mix.DecimalType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfNonNegativeDecimalType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfNonNegativeDecimalType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfDateType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfDateType"/>
+    </bindings>
+    <bindings scd="~tns:dateType">
+      <class ref="com.gruppometa.data.mets.mix.DateType"/>
+    </bindings>
+    <bindings scd="~tns:base64BinaryType">
+      <class ref="com.gruppometa.data.mets.mix.Base64BinaryType"/>
+    </bindings>
+    <bindings scd="~tns:rationalType">
+      <class ref="com.gruppometa.data.mets.mix.RationalType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfEnumType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfEnumType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfByteOrderType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfByteOrderType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfMessageDigestAlgorithmType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfMessageDigestAlgorithmType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfDjvuFormatType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfDjvuFormatType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfCaptureDeviceType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfCaptureDeviceType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfScannerSensorType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfScannerSensorType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfCameraSensorType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfCameraSensorType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfBitsPerSampleUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfBitsPerSampleUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfComponentUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfComponentUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfComponentUseType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfComponentUseType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfGrayResponseUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfGrayResponseUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfTargetTypeType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfTargetTypeType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfExtraSamplesType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfExtraSamplesType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfExposureProgramType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfExposureProgramType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfMeteringModeType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfMeteringModeType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfLightSourceType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfLightSourceType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfFlashType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfFlashType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfBackLightType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfBackLightType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfSensingMethodType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfSensingMethodType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfOpticalResolutionUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfOpticalResolutionUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfAutoFocusType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfAutoFocusType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsLatitudeRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsLatitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsLongitudeRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsLongitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsAltitudeRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsAltitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsStatusType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsStatusType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsMeasureModeType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsMeasureModeType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsSpeedRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsSpeedRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsTrackRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsTrackRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsImgDirectionRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsImgDirectionRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsDestLatitudeRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsDestLatitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsDestLongitudeRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsDestLongitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsDestBearingRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsDestBearingRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsDestDistanceRefType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsDestDistanceRefType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfgpsDifferentialType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfgpsDifferentialType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfOrientationType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfOrientationType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfSamplingFrequencyPlaneType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfSamplingFrequencyPlaneType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfSamplingFrequencyUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfSamplingFrequencyUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfsourceDimensionUnitType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfsourceDimensionUnitType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfGrayResponseCurveType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfGrayResponseCurveType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfExifVersionType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfExifVersionType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfYCbCrPositioningType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfYCbCrPositioningType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfYCbCrSubsampleHorizType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfYCbCrSubsampleHorizType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfYCbCrSubsampleVertType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfYCbCrSubsampleVertType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfPreviousImageMetadataType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfPreviousImageMetadataType"/>
+    </bindings>
+    <bindings scd="~tns:typeOfComponentPhotometricInterpretationType">
+      <class ref="com.gruppometa.data.mets.mix.TypeOfComponentPhotometricInterpretationType"/>
+    </bindings>
+    <bindings scd="~tns:enumType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.EnumType"/>
+    </bindings>
+    <bindings scd="~tns:byteOrderType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ByteOrderType"/>
+    </bindings>
+    <bindings scd="~tns:messageDigestAlgorithmType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.MessageDigestAlgorithmType"/>
+    </bindings>
+    <bindings scd="~tns:djvuFormatType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.DjvuFormatType"/>
+    </bindings>
+    <bindings scd="~tns:captureDeviceType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.CaptureDeviceType"/>
+    </bindings>
+    <bindings scd="~tns:scannerSensorType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ScannerSensorType"/>
+    </bindings>
+    <bindings scd="~tns:cameraSensorType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.CameraSensorType"/>
+    </bindings>
+    <bindings scd="~tns:bitsPerSampleUnit">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.BitsPerSampleUnit"/>
+    </bindings>
+    <bindings scd="~tns:componentUnitType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ComponentUnitType"/>
+    </bindings>
+    <bindings scd="~tns:componentUseType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ComponentUseType"/>
+    </bindings>
+    <bindings scd="~tns:grayResponseUnitType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GrayResponseUnitType"/>
+    </bindings>
+    <bindings scd="~tns:targetTypeType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.TargetTypeType"/>
+    </bindings>
+    <bindings scd="~tns:extraSamplesType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ExtraSamplesType"/>
+    </bindings>
+    <bindings scd="~tns:exposureProgramType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ExposureProgramType"/>
+    </bindings>
+    <bindings scd="~tns:meteringModeType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.MeteringModeType"/>
+    </bindings>
+    <bindings scd="~tns:lightSourceType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.LightSourceType"/>
+    </bindings>
+    <bindings scd="~tns:flashType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.FlashType"/>
+    </bindings>
+    <bindings scd="~tns:backLightType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.BackLightType"/>
+    </bindings>
+    <bindings scd="~tns:sensingMethodType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.SensingMethodType"/>
+    </bindings>
+    <bindings scd="~tns:opticalResolutionUnitType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.OpticalResolutionUnitType"/>
+    </bindings>
+    <bindings scd="~tns:autoFocusType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.AutoFocusType"/>
+    </bindings>
+    <bindings scd="~tns:gpsLatitudeRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsLatitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsLongitudeRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsLongitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsAltitudeRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsAltitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsStatusType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsStatusType"/>
+    </bindings>
+    <bindings scd="~tns:gpsSpeedRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsSpeedRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsTrackRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsTrackRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsImgDirectionRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsImgDirectionRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsDestLatitudeRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsDestLatitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsDestLongitudeRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsDestLongitudeRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsDestBearingRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsDestBearingRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsDestDistanceRefType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsDestDistanceRefType"/>
+    </bindings>
+    <bindings scd="~tns:gpsDifferentialType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GpsDifferentialType"/>
+    </bindings>
+    <bindings scd="~tns:orientationType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.OrientationType"/>
+    </bindings>
+    <bindings scd="~tns:samplingFrequencyPlaneType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.SamplingFrequencyPlaneType"/>
+    </bindings>
+    <bindings scd="~tns:samplingFrequencyUnitType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.SamplingFrequencyUnitType"/>
+    </bindings>
+    <bindings scd="~tns:sourceDimensionUnitType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.SourceDimensionUnitType"/>
+    </bindings>
+    <bindings scd="~tns:grayResponseCurveType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.GrayResponseCurveType"/>
+    </bindings>
+    <bindings scd="~tns:componentPhotometricInterpretationType">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.mix.ComponentPhotometricInterpretationType"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.niso.org/pdfs/DataDict.pdf">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets.niso"/>
+    </schemaBindings>
+    <bindings scd="~tns:image_creation">
+      <class ref="com.gruppometa.data.mets.niso.ImageCreation"/>
+    </bindings>
+    <bindings scd="~tns:dimensions">
+      <class ref="com.gruppometa.data.mets.niso.Dimensions"/>
+    </bindings>
+    <bindings scd="~tns:format">
+      <class ref="com.gruppometa.data.mets.niso.Format"/>
+    </bindings>
+    <bindings scd="~tns:spatialmetrics">
+      <class ref="com.gruppometa.data.mets.niso.Spatialmetrics"/>
+    </bindings>
+    <bindings scd="~tns:targetdata">
+      <class ref="com.gruppometa.data.mets.niso.Targetdata"/>
+    </bindings>
+    <bindings scd="~tns:docFormat">
+      <class ref="com.gruppometa.data.mets.niso.DocFormat"/>
+    </bindings>
+    <bindings scd="~tns:img_mimetype">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.niso.ImgMimetype"/>
+    </bindings>
+    <bindings scd="~tns:compressiontype">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.niso.Compressiontype"/>
+    </bindings>
+    <bindings scd="~tns:photometricinterpretationtype">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.niso.Photometricinterpretationtype"/>
+    </bindings>
+    <bindings scd="~tns:doc_mimetype">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.niso.DocMimetype"/>
+    </bindings>
+    <bindings scd="~tns:doc_compressiontype">
+      <typesafeEnumClass ref="com.gruppometa.data.mets.niso.DocCompressiontype"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://cosimo.stanford.edu/sdr/metsrights/">
+    <schemaBindings map="false">
+      <package name="com.gruppometa.data.mets.metsrights"/>
+    </schemaBindings>
+    <bindings scd="~tns:RightsHolderContactTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.RightsHolderContactTYPE"/>
+    </bindings>
+    <bindings scd="~tns:RightsDeclareMDTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.RightsDeclarationMD"/>
+    </bindings>
+    <bindings scd="~tns:RightsHolderTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.RightsHolderTYPE"/>
+    </bindings>
+    <bindings scd="~tns:ContextTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.ContextTYPE"/>
+    </bindings>
+    <bindings scd="~tns:UserNameTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.UserNameTYPE"/>
+    </bindings>
+    <bindings scd="~tns:PermissionsTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.PermissionsTYPE"/>
+    </bindings>
+    <bindings scd="~tns:ConstraintsTYPE">
+      <class ref="com.gruppometa.data.mets.metsrights.ConstraintsTYPE"/>
+    </bindings>
+  </bindings>
+</bindings>
+

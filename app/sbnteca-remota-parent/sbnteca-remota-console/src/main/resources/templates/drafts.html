@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/drafts.js" type="text/javascript"></script>
+        <div id="blockDisplay" class="modal-backdrop hide fade">
+            <div class="modal-body pager">
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+            	<div class="help-block row"></div>
+                <img src="images/progress_loading.gif"></img>
+                <h3 id="blockText">Ricerca risultati in corso.</h3>
+            </div>
+        </div>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Bozze</h3></div>
+        		</div>
+        		<div class="span9 row">
+        			<div class="row-fluid">
+                   		<div class="span4">
+                   			<img src="images/add.png" width="14" height="14" />
+                       		<a id="draftCreateBtnLink" class="btn-link">Crea Bozza MAG</a>
+                   		</div>
+						<div class="span4">
+							<img src="images/add.png" width="14" height="14" />
+							<a id="draftCreateMetsBtnLink" class="btn-link">Crea Bozza METS</a>
+						</div>
+                   	</div>
+                    <div class="help-block row"></div>
+                    <div class="help-block row"></div>
+                    <div class="help-block row"></div>
+                    <div id="ricerca_avanzata" class="row-fluid" th:fragment="searchForm">
+                		<div class="span12 well">
+                			<div class="row-fluid">
+                				<div class="form-vertical">
+                					<div class="control-group">
+                						<label class="control-label" for="channel_text"><b>Testo da cercare:</b></label>
+                						<div class="controls"><input class="channel span8" name="channel_text" id="channel_text" /></div>
+                					</div>
+                					<div class="help-block row"></div>
+               						<div class="help-block row"></div>
+                				</div>
+                			</div>
+                			<div class="row-fluid">
+                				<div class="span8">
+                					<div class="form-vertical">
+                						<div class="help-block row"></div>
+                						<div class="help-block row"></div>
+                						<div class="control-group">
+                							<label class="control-label" for="channel_project"><b>Progetto/cartella:</b></label>
+                            				<div class="controls"><select id="channel_project" name="channel_project" class="channel multiselect span12" multiple="multiple"></select></div>
+                						</div>
+                					</div>
+                				</div>
+                			</div>
+							<div class="row-fluid">
+								<div class="span8">
+									<div class="form-vertical">
+										<div class="help-block row"></div>
+										<div class="help-block row"></div>
+										<div class="control-group">
+											<label class="control-label" for="channel_documentFormat"><b>Tipo contenitore:</b></label>
+											<div class="controls"><select id="channel_documentFormat" name="channel_documentFormat" class="channel multiselect span12" multiple="multiple"></select></div>
+										</div>
+									</div>
+								</div>
+							</div>
+                			<div class="help-block row"></div>
+                			<div class="help-block row"></div>
+                			<div class="row-fluid form-inline">
+                				<a id="searchBtn" title="Cerca"><i class="icon-search btn-icon"></i></a>
+                            	<a id="deleteBtn" title="Cancella Ricerca"><i class="icon-remove btn-icon"></i></a>
+                			</div>
+                		</div>
+                	</div>
+                	<div id="resultArea" style="display: none">
+                		<div class="row-fluid">
+                			<input type="hidden" id="userID" th:value="${userID}" />
+                			<h4>Risultati</h4>
+                			<table id="draftTable" class="table table-bordered table-striped"></table>
+                		</div>
+                	</div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+        <div class="modal hide fade" id="delete-confirm">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4></h4>
+			</div>
+			<div class="modal-body">
+			    <p>Sei sicuro di voler procedere con la cancellazione?</p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noBtn">No</a>
+			    <a class="btn btn-primary" id="yesBtn">Si</a>
+			</div>
+        </div>
+        <div class="modal hide fade" id="create-draft">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4>Creazione bozza</h4>
+			</div>
+			<div class="modal-body">
+			    <div class="form-horizontal">
+			    	<label class="control-label"><b>Seleziona Progetto: </b></label>
+			    	<div class="controls"><select id="draft_select_project"></select></div>
+			    </div>
+				<div class="form-horizontal">
+					<label class="control-label"><b>Label: </b></label>
+					<div class="controls"><input type="text" id="draft_label"/></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" id="noCreateBtn">Annulla</a>
+			    <a class="btn btn-primary" id="yesCreateBtn">Crea</a>
+			</div>
+        </div>
+		<div class="modal hide fade" id="create-draft-mets">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4>Creazione bozza</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<label class="control-label"><b>Seleziona Progetto: </b></label>
+					<div class="controls"><select id="draft_select_project_mets"></select></div>
+				</div>
+				<div class="form-horizontal">
+					<label class="control-label"><b>Label: </b></label>
+					<div class="controls"><input type="text" id="draft_label_mets"/></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-default" id="noCreateMetsBtn">Annulla</a>
+				<a class="btn btn-primary" id="yesCreateMetsBtn">Crea</a>
+			</div>
+		</div>
+        <div class="modal hide fade" id="editor-open-error">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4>Accesso negato editor</h4>
+			</div>
+			<div class="modal-body">
+			    <p><div class="alert alert-warning">Impossibile accedere all'editor, è stato cancellato il progetto di appartenenza
+			    della bozza selezionata</div></p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-primary" id="openErrorCloseBtn">Chiudi</a>
+			</div>
+        </div>
+        <div class="modal hide fade" id="editor-no-projects">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4>Assenza progetti disponibili</h4>
+			</div>
+			<div class="modal-body">
+			    <p><div class="alert alert-error">Impossibile creare una bozza, non ci sono progetti caricati disponibili</div></p>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-primary" id="noProjectsCloseBtn">Chiudi</a>
+			</div>
+        </div>
+		<div class="modal hide fade" id="editor-no-projects-mets">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4>Assenza progetti disponibili</h4>
+			</div>
+			<div class="modal-body">
+				<p><div class="alert alert-error">Impossibile creare una bozza, non ci sono progetti caricati disponibili</div></p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-primary" id="noProjectsMetsCloseBtn">Chiudi</a>
+			</div>
+		</div>
+    </body>
+</html>

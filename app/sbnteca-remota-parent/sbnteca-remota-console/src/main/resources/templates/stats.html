@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/stats.js" type="text/javascript"></script>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Elaborati Statistici</h3></div>
+        		</div>
+        		<div class="span9 row">
+                    <div class="form-inline span10">
+                    	<div class="control-group">
+                    		<label class="control-label" for="primaryField">Imposta il campo della ricerca</label>
+                    		<select id="primaryField">
+                                <option value="levelString">Livello bibliografico</option>
+                                <option value="type">Tipo documento</option>
+                                <option value="stprog">Stprog</option>
+                                <option value="agency">Agenzia</option>
+                                <option value="collection">Collezione</option>
+                                <option value="library">Biblioteca</option>
+                            </select>
+                            <input type="button" id="primaryBtn" class="btn btn-default" value="Cerca" />
+                    	</div>
+	                    <table id="primaryTable" class="table table-bordered table-striped"></table>
+			        </div>
+			        <div class="help-block row"></div>
+	                <div class="help-block row"></div>
+	                <div style="display: none;" id="facetsSection" class="row">
+	                	<div class="row-fluid">
+	                		<div class="span7 offset1">
+		                		<h5 id="secondaryField_1"></h5>
+		                        <h6 id="primaryValue_1"></h6>
+		                        <table id="secondaryTable_1" class="table table-bordered table-condensed"></table>
+		                	</div>
+	                	</div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="row-fluid">
+	                		<div class="span7 offset1">
+		                		<h5 id="secondaryField_2"></h5>
+		                        <h6 id="primaryValue_2"></h6>
+		                        <table id="secondaryTable_2" class="table table-bordered table-condensed"></table>
+		                	</div>
+	                	</div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="row-fluid">
+	                		<div class="span7 offset1">
+		                		<h5 id="secondaryField_3"></h5>
+		                        <h6 id="primaryValue_3"></h6>
+		                        <table id="secondaryTable_3" class="table table-bordered table-condensed"></table>
+		                	</div>
+	                	</div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="row-fluid">
+	                		<div class="span7 offset1">
+		                		<h5 id="secondaryField_4"></h5>
+		                        <h6 id="primaryValue_4"></h6>
+		                        <table id="secondaryTable_4" class="table table-bordered table-condensed"></table>
+		                	</div>
+	                	</div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                	<div class="row-fluid">
+	                		<div class="span7 offset1">
+		                		<h5 id="secondaryField_5"></h5>
+		                        <h6 id="primaryValue_5"></h6>
+		                        <table id="secondaryTable_5" class="table table-bordered table-condensed"></table>
+		                	</div>
+	                	</div>
+	                	<div class="help-block row"></div>
+	                	<div class="help-block row"></div>
+	                </div>
+			    </div>
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+    </body>
+</html>

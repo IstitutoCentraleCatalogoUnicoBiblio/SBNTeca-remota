@@ -1,0 +1,148 @@
+= Servizi Rest per la gestione dell'OAI Provider della Magteca
+Ingo Schütze;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[introduction]
+= Introduzione
+
+Servizi Rest per la gestione dell'OAI Provider esponse due gruppi di servizi, per primo 
+per la gestione dei sets del provider da fornire agli utenti.
+Secondo: la gestione della configurazione del provider stesso, azioni al livello di
+amministrazione del sistema.  
+
+
+[[resources]]
+= Oaiset
+
+I set dell'OAIprovider raggruppano un certa insieme di risorsa con un nome = "spec" del gruppo. In seguito
+può essere chiamato con il verb=listSets e poi listIdentifieers di singolo set.
+La somma dei sets definisce il totala e delle risorse da pubblicare. 
+
+[[resource-oaisets-list]]
+== Lista degli oaisets
+
+A `GET` request lists per ottenere tutti i sets.
+
+include::{snippets}/list-oaisets/response-fields.adoc[]
+
+=== Per esempio
+
+include::{snippets}/list-oaisets/curl-request.adoc[]
+
+=== La riposta
+
+include::{snippets}/list-oaisets/http-response.adoc[]
+
+[[resource-oaisets-delete]]
+== Cancellazione di un set oaiset
+
+A `DELETE` request cancellazione.
+
+=== Parametri della richeista
+
+include::{snippets}/delete-oaiset/path-parameters.adoc[]
+
+=== Struttura dela risposta
+
+include::{snippets}/delete-oaiset/response-fields.adoc[]
+
+
+=== Per esempio
+
+include::{snippets}/delete-oaiset/curl-request.adoc[]
+
+=== La riposta
+
+include::{snippets}/delete-oaiset/http-response.adoc[]
+
+[[resource-oaisets-aggiorna]]
+
+== Aggiornamento di un set oaiset
+
+A `POST` request di aggiornamento.
+
+
+=== Struttura della richiesta
+
+include::{snippets}/update-oaiset/request-fields.adoc[]
+
+=== Struttura dela risposta
+
+include::{snippets}/update-oaiset/response-fields.adoc[]
+
+=== Per esempio
+
+include::{snippets}/update-oaiset/curl-request.adoc[]
+
+=== La riposta
+
+include::{snippets}/update-oaiset/http-response.adoc[]
+
+[[resources2]]
+= Configurazione
+
+== Lista degli delle proprietà della configurazione
+
+A `GET` request lista per ottenere tutta la configruazione di un servlet.
+
+include::{snippets}/get-configuration/path-parameters.adoc[]
+
+include::{snippets}/get-configuration/response-fields.adoc[]
+
+=== Per esempio
+
+include::{snippets}/get-configuration/curl-request.adoc[]
+
+=== La riposta
+
+include::{snippets}/get-configuration/http-response.adoc[]
+
+[[resource-config-update]]
+== Aggiornamento di una proprietà di configurazione
+
+A `POST` request di aggiornamento.
+
+=== Struttura della richiesta
+
+include::{snippets}/update-configuration/request-fields.adoc[]
+
+=== Struttura della risposta
+
+include::{snippets}/update-configuration/response-fields.adoc[]
+
+=== Per esempio
+
+include::{snippets}/update-configuration/curl-request.adoc[]
+
+=== La riposta
+
+include::{snippets}/update-configuration/http-response.adoc[]
+
+[[resources3]]
+= Gestione stato del provider
+
+La gestione avviene al momento solo tramite GET e risposta in formato XML.
+
+[[resource-getstatus]]
+== Lo stato del provider
+
+=== Struttura della richiesta
+
+include::{snippets}/get-status/request-parameters.adoc[]
+
+include::{snippets}/get-status/curl-request.adoc[]
+
+
+[[resource-changestatus]]
+== La modifica dello stato del provider
+
+=== Struttura della richiesta
+
+include::{snippets}/change-status/request-parameters.adoc[]
+
+include::{snippets}/change-status/curl-request.adoc[]

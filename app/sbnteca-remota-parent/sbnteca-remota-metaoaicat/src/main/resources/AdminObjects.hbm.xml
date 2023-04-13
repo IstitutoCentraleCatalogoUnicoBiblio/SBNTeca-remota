@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- 
+	Configurazione per il database dei dati raw.
+	 -->	
+<hibernate-mapping package="com.gruppometa.culturaitalia.admin.objects">
+  <class name="OaiSet" table="oaiset">
+     <id name="id" column="id" type="int" >
+    	<generator class="increment"/>
+    </id>
+    <property name="name"  type="string"/>
+    <property name="spec"  type="string"/>
+    <property name="description_it"  type="string"/>
+    <property name="description_en"  type="string"/>
+    <property name="servletName"  type="string"/>
+    <property name="project"  type="string"/>
+    <property name="type"  type="string"/>
+    <property name="solrquery"  type="string" >
+    	<column name="solrquery" length="600"></column>
+    </property>  
+      <!--   
+  	<property name="limiter1"  type="string"/>
+  	<property name="limiter2"  type="string"/>
+  	<property name="limiter3"  type="string"/>
+  	<property name="limiter1Value"  type="string"/>
+  	<property name="limiter2Value"  type="string"/>
+  	<property name="limiter3Value"  type="string"/>
+  	 -->
+  	 
+  	<list name="limiters" table="oaiset_limiter" lazy="false">
+			<key column="id" />
+			<index column="idx" />
+			<composite-element class="OaiSetLimiter">
+				<property name="limiter" type="string"></property>
+				<property name="value" type="string"></property>
+			</composite-element>
+	</list>
+	 
+	<list name="constants" table="oaiset_constant" lazy="false">
+			<key column="id" />
+			<index column="idx" />
+			<composite-element class="OaiSetConstant">
+				<property name="fieldName" type="string"></property>
+				<property name="value" type="string"></property>
+			</composite-element>
+	</list>
+	   	
+	<list name="profiles" table="oaiset_profile" lazy="false">
+			<key column="id" />
+			<index column="idx" />
+			<composite-element class="OaiSetProfile">
+				<property name="name" type="string"></property>
+			</composite-element>
+	</list>
+
+  </class>
+  <class name="UriLookup" table="urilookup">
+     <id name="id"  type="int" >
+    	<generator class="increment"/>
+    </id>  	
+    <property name="key" column="chiave" type="string"/>
+    <property name="value" type="string"/>
+   </class>
+  <class name="Geoname" table="geonames">
+	     <id name="id"  type="int"  column="geonameid">
+    		<generator class="increment"/>
+    	</id>  	
+    <property name="name" type="string"/>
+    <property name="asciiname" type="string"/>
+    <property name="provincia" type="string"/>
+    <property name="tipo" column="field_007" type="string"/>
+    <property name="longitude" type="double"/>
+    <property name="latitude" type="double"/>    	
+    </class>
+  <class name="OaicatConfiguration" table="oaicatconfiguration">
+    	<id name="id"  type="int" >
+    		<generator class="increment"/>
+    	</id>  	
+   		 <property name="servletName" type="string"/>
+    	<list name="items" cascade="all" lazy="false">
+    		<key column="id_oiacatconfig" not-null="true"/>
+    		<index column="idx"/>
+    		<one-to-many class="OaicatConfigItem"></one-to-many>
+    	</list>    	
+    </class>
+  <class name="OaicatConfigItem" table="oiacatconfigitem">
+    <id name="id"  type="int">
+    		<generator class="increment"/>
+    	</id>  	
+   		 <property name="name" type="string"/>
+    	<property name="value" type="text"/>
+    </class>
+</hibernate-mapping>

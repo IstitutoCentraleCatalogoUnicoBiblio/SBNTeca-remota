@@ -1,0 +1,11 @@
+openAPI:
+  info:
+    version: '1.0'
+    title: SbnTeca Remota API
+    description: 'Servizi REST per la gestione del DAM della Teca Remota.'
+#    termsOfService: http://swagger.io/terms/
+    contact:
+      email: support@iccu.sbn.it
+    license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html

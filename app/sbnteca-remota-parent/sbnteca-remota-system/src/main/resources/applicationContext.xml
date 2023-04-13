@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+			">
+	
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:config.properties" />
+	
+	<!--<bean id="RestServices" class="com.gruppometa.sbntecaremota.restweb.RestServices" />-->
+	 
+	<!-- Configurazioni databases -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="${jdbc.tecadigitale.url}" />
+		<property name="username" value="${jdbc.tecadigitale.username}" />
+		<property name="password" value="${jdbc.tecadigitale.password}" />
+	</bean>
+	
+	<bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="tecaDigitale" />
+		<property name="packagesToScan" value="com.gruppometa.sbntecaremota.objects.db" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEmf" />
+	</bean>
+	<!-- 
+	<bean id="dataSourceDelivery" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${jdbc.tecadigitaledelivery.url}" />
+		<property name="username" value="${jdbc.tecadigitaledelivery.username}" />
+		<property name="password" value="${jdbc.tecadigitaledelivery.password}" />
+	</bean>
+	
+	<bean id="myEmfDelivery" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceDelivery" />
+		<property name="persistenceUnitName" value="tecaDigitaleDelivery" />
+		<property name="packagesToScan" value="com.gruppometa.sbntecaremota.objects.db.delivery" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLInnoDBDialect" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="txManagerDelivery" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEmfDelivery" />
+	</bean>
+	 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<!-- <tx:annotation-driven transaction-manager="txManagerDelivery" /> -->
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	
+	<!-- DAO -->
+	<bean id="tecaProcessDao" class="com.gruppometa.sbntecaremota.objects.db.DBTecaProcessDao" />
+	<bean id="importDetailDao" class="com.gruppometa.sbntecaremota.objects.db.DBImportDetailDao" />
+	<bean id="importMagDao" class="com.gruppometa.sbntecaremota.objects.db.DBImportMagDao" />
+	<bean id="deleteMagDao" class="com.gruppometa.sbntecaremota.objects.db.DBDeleteMagDao" />
+	<bean id="publicationDao" class="com.gruppometa.sbntecaremota.objects.db.DBPublicationMagDao" />
+	<bean id="userDao" class="com.gruppometa.sbntecaremota.objects.db.DBTecaUserDao" />
+	<bean id="roleDao" class="com.gruppometa.sbntecaremota.objects.db.DBUserRoleDao" />
+	<bean id="projectDao" class="com.gruppometa.sbntecaremota.objects.db.DBProjectDao" />
+	<bean id="projectHistoryDao" class="com.gruppometa.sbntecaremota.objects.db.DBProjectHistoryDao" />
+	<bean id="oaiIdentifierDao" class="com.gruppometa.sbntecaremota.objects.db.DBOaiIdentifierDao" />
+	<bean id="exportDao" class="com.gruppometa.sbntecaremota.objects.db.DBExportDao" />
+	
+	<!-- Servizi -->
+	<bean id="magProjectService" class="com.gruppometa.sbntecaremota.restweb.objects.MagProjectService"></bean>
+	<bean id="magImportService" class="com.gruppometa.sbntecaremota.restweb.objects.MagImportService"></bean>
+	<bean id="magSearchService" class="com.gruppometa.sbntecaremota.restweb.objects.MagSearchService"></bean>
+	<bean id="magDetailService" class="com.gruppometa.sbntecaremota.restweb.objects.MagDetailService"></bean>
+	<bean id="magUserService" class="com.gruppometa.sbntecaremota.restweb.objects.MagUserService"></bean>
+	<bean id="magEditorService" class="com.gruppometa.sbntecaremota.restweb.objects.MagEditorService"></bean>
+	<bean id="vfsService" class="com.gruppometa.sbntecaremota.vfsfilesystem.VfsService">
+		<property name="urlBase" value="${backend.server.external}/TecaDigitaleSystem/"/>
+	</bean>
+	
+	<!-- Oggetti -->
+	<bean id="homeManager" class="com.gruppometa.sbntecaremota.restweb.objects.HomeManager" />
+
+	<bean id="vfsFileSystem" class="com.gruppometa.sbntecaremota.vfsfilesystem.VfsFileSystem" />
+	
+	<bean id="delivery" class="com.gruppometa.sbntecaremota.retrieve.FileResourceDelivery">
+		<property name="storeType" value="${fs_store}" />
+		<property name="vfsFileSystem" ref="vfsFileSystem"/>
+	</bean>
+	
+	<bean id="publicationBatchSize" class="java.lang.Integer">
+		<constructor-arg value="250" />
+	</bean>
+	
+	<bean id="deleteBatchSize" class="java.lang.Integer">
+		<constructor-arg value="250" />
+	</bean>
+	
+	<bean id="exportBatchSize" class="java.lang.Integer">
+		<constructor-arg value="250" />
+	</bean>
+	
+	<bean id="normalizationBatchSize" class="java.lang.Integer">
+		<constructor-arg value="250" />
+	</bean>
+	
+	<bean id="thumbCreator" class="com.gruppometa.sbntecaremota.util.ThumbnailCreator">
+		<property name="connectionTimeout" value="${thumbServlet.connectionTimeout}" />
+		<property name="timeoutInSeconds" value="${thumbServlet.timeoutInSeconds}" />
+		<property name="useCache" value="${thumbServlet.useCache}" />
+		<property name="cachePath" value="${thumbServlet.cacheRegion}" />
+		<property name="internalUrl" value="${backend.server.internal}" />
+		<property name="externalUrl" value="${backend.server.external}" />
+		<property name="placeholders" ref="placeholders" />
+	</bean>
+
+	<bean id="manifest3Repository" class="com.gruppometa.sbntecaremota.iiif.Manifest3Repository">
+		<property name="base" value="${backend.server.external}/TecaDigitaleSystem/iiif/v3"/>
+		<property name="baseIiif" value="${backend.server.external}/iiif/2/"/>
+		<property name="jmmsBase" value="${backend.server.external}/TecaDigitaleSystem/"/>
+	</bean>
+
+	<bean id="sbnConfiguration" class="com.gruppometa.sbntecaremota.objects.SbnConfiguration">
+		<property name="requestType" value="${sbn.request.type}" />
+		<property name="requestUrl" value="${sbn.request.url}" />
+		<property name="requestUsername" value="${sbn.request.username}" />
+	</bean>
+	
+	<util:map id="placeholders" map-class="java.util.HashMap">
+		<entry key="audio" value="${thumbServlet.placeholderBase}/audio_icon.png" />
+		<entry key="video" value="${thumbServlet.placeholderBase}/video_icon.png" />
+		<entry key="ocr" value="${thumbServlet.placeholderBase}/ocr_icon.png" />
+		<entry key="doc" value="${thumbServlet.placeholderBase}/doc_icon.png" />
+		<entry key="xml" value="${thumbServlet.placeholderBase}/xml_icon.png" />
+		<entry key="html" value="${thumbServlet.placeholderBase}/html_icon.png" />
+		<entry key="txt" value="${thumbServlet.placeholderBase}/txt_icon.png" />
+		<entry key="pdf" value="${thumbServlet.placeholderBase}/pdf_icon.png" />
+		 
+		<entry key="no-image" value="${thumbServlet.placeholderBase}/segnaposto.png" />
+		<entry key="error-image" value="${thumbServlet.placeholderBase}/segnaposto_error.png" />
+	</util:map>
+</beans>

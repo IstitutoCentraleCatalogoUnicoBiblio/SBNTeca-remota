@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <script src="js/objectsStats.js" type="text/javascript"></script>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Oggetti Digitali</h3></div>
+        		</div>
+        		<div class="span9 row">
+        			<div class="row-fluid">
+        				<div class="span11 well">
+        					<div class="form-horizontal">
+        						<label><b>Filtri</b></label>
+        						<div class="control-group">
+        							<label class="control-label" for="channel_project">Progetto/cartella:</label>
+        							<div class="controls"><select id="channel_project" name="channel_project" class="filter span10"></select></div>
+        						</div>
+        						<div class="control-group">
+        							<label class="control-label" for="channel_agency">Agenzia:</label>
+        							<div class="controls"><select id="channel_agency" name="channel_agency" class="filter span10"></select></div>
+        						</div>
+        						<div class="control-group">
+        							<label class="control-label" for="channel_library">Localizzazione:</label>
+        							<div class="controls"><select id="channel_library" name="channel_library" class="filter span10"></select></div>
+        						</div>
+        						<div class="control-group">
+        							<label class="control-label" for="channel_collection">Collezione:</label>
+        							<div class="controls"><select id="channel_collection" name="channel_collection" class="filter span10"></select></div>
+        						</div>
+        						<div class="control-group"></div>
+        						<div class="control-group"></div>
+        						<label><b>Raggruppamenti</b></label>
+        						<div class="control-group" id="groupby_select">
+        							<div class="form-inline">
+        								<label class="checkbox inline" for="group_project">
+        									<input type="checkbox" id="group_project" name="group_project" value="project" class="groupby" checked="checked" />
+        									Progetto
+        								</label>
+        								<label class="checkbox inline" for="group_agency">
+        									<input type="checkbox" id="group_agency" name="group_agency" value="agency" class="groupby" />
+        									Agenzia
+        								</label>
+        								<label class="checkbox inline" for="group_library">
+        									<input type="checkbox" id="group_library" name="group_library" value="library" class="groupby" />
+        									Localizzazione
+        								</label>
+        								<label class="checkbox inline" for="group_collection">
+        									<input type="checkbox" id="group_collection" name="group_collection" value="collection" class="groupby" />
+        									Collezione
+        								</label>
+        								<span id="groupError" class="help-inline offset1" style="display: none">Specificare almeno 1 campo di raggruppamento</span>
+        							</div>
+        						</div>
+        						<div class="control-group"></div>
+        						<div class="control-group"></div>
+        						<div class="control-group">
+        							<input type="button" id="statsBtn" class="btn btn-primary" name="statsBtn" value="Esegui" />
+	                           	 	<input type="button" id="undoBtn" class="btn btn-default" name="undoBtn" value="Annulla selezione" />
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="help-block row"></div>
+        			<div class="help-block row"></div>
+        			<div class="help-block row"></div>
+        			<div class="help-block row"></div>
+        			<div class="row-fluid">
+        				<div class="span11">
+        					<table id="statsTable" class="table table-bordered table-bordered"></table>
+        				</div>
+        			</div>
+                </div>
+            </div>
+            
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+    </body>
+</html>

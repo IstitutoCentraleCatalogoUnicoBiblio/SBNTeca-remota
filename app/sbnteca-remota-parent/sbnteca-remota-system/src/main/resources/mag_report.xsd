@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gruppometa.it/teca_digitale/import_mag" xmlns:tns="http://www.gruppometa.it/teca_digitale/import_mag" elementFormDefault="qualified">
+
+    <element name="file" type="string"></element>
+
+    <element name="num-mag" type="integer"></element>
+
+    <element name="message" type="tns:Message"></element>
+    
+    <complexType name="Message" mixed="true">
+    	<attribute name="type" use="required">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="ERROR"></enumeration>
+    				<enumeration value="WARNING"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    
+
+    <element name="mag-info" type="tns:MagInfo"></element>
+    
+
+    <element name="mag-validation" type="tns:MagValidation"></element>
+    
+    <complexType name="MagValidation">
+    	<sequence>
+    		<element ref="tns:message" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="result" use="required">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="OK"></enumeration>
+    				<enumeration value="KO"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="MagInfo">
+    	<sequence>
+    		<element ref="tns:file" maxOccurs="1" minOccurs="1"></element>
+    		<element ref="tns:mag-validation" maxOccurs="1" minOccurs="1"></element>
+    		<element ref="tns:mag-resources" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="status" type="integer"></element>
+
+    <element name="status-message" type="string"></element>
+
+    <element name="processed-mag" type="integer"></element>
+
+    <element name="magOK" type="integer"></element>
+
+    <element name="magKO" type="integer"></element>
+
+    <element name="import" type="tns:Import"></element>
+    
+    <complexType name="Import">
+    	<sequence>
+    		<element ref="tns:user" maxOccurs="1" minOccurs="1"></element>
+    		<element ref="tns:status" maxOccurs="1" minOccurs="1"></element>
+    		<element ref="tns:status-message" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element ref="tns:num-mag" maxOccurs="1" minOccurs="1"></element>
+    		<element ref="tns:processed-mag" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element ref="tns:magOK" maxOccurs="1" minOccurs="0"></element>
+    		<element ref="tns:magKO" maxOccurs="1" minOccurs="0"></element>
+            <element ref="tns:indexed-mag" maxOccurs="1" minOccurs="0"></element>
+            <element ref="tns:validation" maxOccurs="1" minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="start" type="string" use="required"></attribute>
+    	<attribute name="end" type="string" use="optional"></attribute>
+    </complexType>
+
+    <element name="validation" type="tns:Validation"></element>
+    
+    <complexType name="Validation">
+    	<sequence>
+    		<element ref="tns:mag-info" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="start" type="string" use="optional"></attribute>
+    	<attribute name="end" type="string" use="optional"></attribute>
+    </complexType>
+
+    <element name="user" type="integer"></element>
+
+    <element name="mag-resource" type="string"></element>
+
+
+    
+
+    <element name="mag-resources" type="tns:MagResourceList"></element>
+    
+    <complexType name="MagResourceList">
+    	<sequence>
+    		<element ref="tns:mag-resource" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    
+
+    <element name="indexed-mag" type="integer"></element>
+</schema>

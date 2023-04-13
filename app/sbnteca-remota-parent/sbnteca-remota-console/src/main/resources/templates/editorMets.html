@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head th:replace="teca_digitale :: header"></head>
+    <body>
+        <div th:replace="teca_digitale :: heading"></div>
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="span2">
+        			<div th:replace="teca_digitale :: menu"></div>
+        		</div>
+        		<div class="span10 row">
+        			<div class="page-menu-header"><h3>Editore METS</h3></div>
+                    <iframe id="mets-editor" style="position: relative" class="span12" name="mets-editor" height="700"
+                            th:src="@{/mets-editor/index?(id=${id})}" frameborder="0"></iframe>
+        		</div>
+
+            </div>
+        </div>
+        <footer th:replace="teca_digitale :: footer"></footer>
+<script language="JavaScript">
+window.addEventListener("message", (event) => {
+    //alert(event.origin+ " ;; "+event.data+" ;; "+event.source.value);
+    history.go(-1);
+}, false);
+</script>
+    </body>
+</html>

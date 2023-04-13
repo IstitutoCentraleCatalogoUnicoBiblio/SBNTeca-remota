@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--
+	Configurazione dei dati del sistema 
+ -->		
+<hibernate-configuration>
+    <session-factory >
+     <!-- name="hibernate/SessionFactoryConfigAdmin">
+    	<property name="hibernate.connection.datasource">java:comp/env/jdbc/icconfig</property>
+       <property name="hibernate.connection.url">jdbc:mysql://192.168.0.1:3306/icconfig2?autoReconnect=true</property>
+     	 -->
+    
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">icconfigbbbb</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.0.2:3306/icconfig2?autoReconnect=true</property>
+        <property name="hibernate.connection.username">icconfig</property>
+     
+      
+     
+        <property name="hibernate.default_catalog">icconfig2</property>
+        <!-- <property name="hibernate.default_schema"></property> -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  		<property name="hibernate.current_session_context_class">thread</property>
+  		<property name="hibernate.show_sql">false</property>
+  		<property name="hibernate.hbm2ddl.auto">update</property>
+  	
+  		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		<property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+		<property name="hibernate.c3p0.testConnectionOnCheckin">true</property>
+		<property name="hibernate.c3p0.preferredTestQuery">SELECT 1</property>
+				
+		<!-- no "connection.pool_size" entry! -->
+  		  		
+  		<mapping resource="AdminObjects.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
