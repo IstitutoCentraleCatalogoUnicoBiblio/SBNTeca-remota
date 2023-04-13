@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+source "bin/common-lib.sh" $@ || exit -1
+source "bin/commands.sh" $@ || exit -1
+
+DATA="./containerdata"
+DOCKERDATA="dockerdata"
+COMPOSEFILE="docker-compose.yml"
+
+checkHelp $@
+
+$@
