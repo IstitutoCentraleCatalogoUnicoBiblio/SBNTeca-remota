@@ -18,6 +18,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import com.gruppometa.sbntecaremota.objects.validators.*;
+import com.gruppometa.sbntecaremota.restweb.AudioCutterComponent;
 import com.gruppometa.sbntecaremota.vfsfilesystem.VfsFileSystem;
 import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -934,6 +935,15 @@ public class ImportMagRunnable implements Runnable {
 			List<String> newIds = UtilXML.getResourceIDs(docNew);
 			delivery.deleteTecaResourcesNotVirtual(magSolr.getIdMag(),
 					oldIds.stream().filter(s -> !newIds.contains(s)).collect(Collectors.toList()));
+			// delete all _cut del vecchio documento
+			if(mag.getUsageE()==null || !mag.getUsageE().contains("5"))
+				delivery.deleteTecaResourcesNotVirtual(magSolr.getIdMag(),
+					oldIds.stream().map(resID-> resID+ AudioCutterComponent.SUFFIX).collect(Collectors.toList()));
+			else
+				delivery.deleteTecaResourcesNotVirtual(magSolr.getIdMag(),
+						oldIds.stream().filter(s -> !newIds.contains(s))
+								.map(resID-> resID+ AudioCutterComponent.SUFFIX)
+								.collect(Collectors.toList()));
 		}
 	}
 

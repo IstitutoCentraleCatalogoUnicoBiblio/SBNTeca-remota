@@ -688,6 +688,7 @@
                                             </select>
                                             <select id="exportFormat" name="exportFormat" class="input-medium">
                                                 <option value="xml">XML con oggetti digitali</option>
+                                                <option value="xml-mag02">MAG 0.2</option>
                                                 <option value="iiif">Manifest IIIF</option>
                                             </select>
                                             <select id="exportUsage" name="exportUsage" class="input-medium" style="display: none">
@@ -695,6 +696,10 @@
                                                 <option value="2">Usage 2</option>
                                                 <option value="3" selected="selected">Usage 3</option>
                                             </select>
+                                            <label id="exportUsage1Label" class="checkbox inline" style="display: none"><input type="checkbox" id="exportUsage1" name="exportUsage1" value="1"/>Usage 1</label>
+                                            <label id="exportUsage2Label" class="checkbox inline" style="display: none"><input type="checkbox" id="exportUsage2" name="exportUsage2" value="2"/>2</label>
+                                            <label id="exportUsage3Label" class="checkbox inline" style="display: none"><input type="checkbox" id="exportUsage3" name="exportUsage3" value="3"/>3</label>
+                                            <label id="exportUsage5Label" class="checkbox inline" style="display: none" title="Esportazione audio usage 4 come usage 3"><input type="checkbox" id="exportUsage5" name="exportUsage5" value="5"/>Audio: 4 come 3</label>
                                             <label class="checkbox inline" style="display: none"><input type="checkbox" id="exportDress" name="exportDress" /> Vestizione</label>
                                         </div>
                                         <div id="normalizeArea" style="display: none" class="row-fluid control-group error" th:if="${#httpServletRequest.servletPath.contains('normalize')}">
@@ -789,6 +794,7 @@
                                                     <label class="checkbox inline" for="usagee_2"><input type="checkbox" name="usagee_2" id="usagee_2" value="2" disabled="disabled" /> 2</label>
                                                     <label class="checkbox inline" for="usagee_3"><input type="checkbox" name="usagee_3" id="usagee_3" value="3" disabled="disabled" /> 3</label>
                                                     <label class="checkbox inline" for="usagee_4"><input type="checkbox" name="usagee_4" id="usagee_4" value="4" disabled="disabled" /> 4</label>
+                                                    <label class="checkbox inline" for="usagee_5" title="Creazione automatica di un preview dei media di tipo audio da usage 3"><input type="checkbox" name="usagee_5" id="usagee_5" value="5" disabled="disabled"/> 4 (audio preview da 3)</label>
                                                 </div>
                                             </div>
                                         </div>

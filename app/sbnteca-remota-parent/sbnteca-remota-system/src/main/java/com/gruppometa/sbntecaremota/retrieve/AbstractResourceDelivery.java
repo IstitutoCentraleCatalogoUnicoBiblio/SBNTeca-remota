@@ -348,7 +348,10 @@ public abstract class AbstractResourceDelivery implements MagResourceDelivery {
 				
 				if(doc.getFieldValue("resource_type") != null)
 					data.setResourceType(doc.getFieldValue("resource_type").toString());
-				
+
+				if(doc.getFieldValue("vfs_usage_s") != null)
+					data.setUsage(doc.getFieldValue("vfs_usage_s").toString());
+
 				this.getResourceStream(doc, data, original);
 				solr.close();
 				

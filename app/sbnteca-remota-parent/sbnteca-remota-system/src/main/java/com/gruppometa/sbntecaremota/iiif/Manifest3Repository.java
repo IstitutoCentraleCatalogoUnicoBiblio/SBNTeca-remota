@@ -81,10 +81,11 @@ public class Manifest3Repository {
             solrQuery.setFields("id","magxmlExternal","usageExternal","documentFormat");
             String magExternal = null;
             QueryResponse solrResponse = solr.query(solrQuery);
+            List<String> usages = null;
             if(solrResponse.getResults().getNumFound()>0) {
                 magExternal = (String) solrResponse.getResults().get(0).getFieldValue("magxmlExternal");
                 String documentFormat =  (String) solrResponse.getResults().get(0).getFieldValue("documentFormat");
-                List<String> usages  = (List<String>) solrResponse.getResults().get(0).getFieldValue("usageExternal");
+                usages  = (List<String>) solrResponse.getResults().get(0).getFieldValue("usageExternal");
                 if(usages!=null && !usages.contains(usage))
                     usage = "3";
                 if("mets".equalsIgnoreCase(documentFormat) && !usage.equals("3"))
@@ -97,7 +98,7 @@ public class Manifest3Repository {
             if(magExternal==null)
                 logger.error("Not found "+idReal+ " in solr of SbnTeca.");
             saxParser.parse(new InputSource(new StringReader(magExternal)),
-                    new MagHandler3(id, manifest, baseIiif, base,jmmsBase,"tdi", usage));
+                    new MagHandler3(id, manifest, baseIiif, base,jmmsBase,"tdi", usage, usages!=null && usages.contains("5") ));
                 /**
                  * p.e. geo non sono vestiti
                  */

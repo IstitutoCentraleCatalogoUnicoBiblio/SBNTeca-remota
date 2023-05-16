@@ -1,6 +1,7 @@
 package com.gruppometa.sbntecaremota.iiif;
 
 import com.gruppometa.sbntecaremota.model.iiif.v3.*;
+import com.gruppometa.sbntecaremota.restweb.AudioCutterComponent;
 import com.gruppometa.sbntecaremota.util.ContentStatic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +67,9 @@ public class MagHandler3 extends DefaultHandler {
 
     boolean doubleAudioForUsage = true; // TODO bugfix per Usage 2 e 3.....
 
-    public MagHandler3(String id, Manifest manifest, String baseIiif, String base, String jmmsBase, String teca, String targetUsage){
+    boolean hasCuts = false;
+
+    public MagHandler3(String id, Manifest manifest, String baseIiif, String base, String jmmsBase, String teca, String targetUsage, boolean hasCuts){
         this.id = id;
         this.base = base;
         this.baseIiif = baseIiif;
@@ -75,6 +78,7 @@ public class MagHandler3 extends DefaultHandler {
         this.teca = teca;
         this.targetUsage = targetUsage;
         this.shiftAltImg = false;
+        this.hasCuts = hasCuts;
     }
 
     @Override
@@ -219,6 +223,7 @@ public class MagHandler3 extends DefaultHandler {
                         || attributes.getQName(i).equals("href")
                     ){
                         tdi = attributes.getValue(i).replace("digitalObject/", "");
+                        currentMedia.setId(tdi);
                         audioUrl = tdi;//attributes.getValue(i);
                         audioUrl = jmmsBase + pathMapper.getResourceStreamUrl(teca, audioUrl, tecaUrl, tdi);
 //                        if(audioUrl.startsWith("cache/normal/"))
@@ -285,18 +290,9 @@ public class MagHandler3 extends DefaultHandler {
                     annotation.setTarget(base + tecaUrl + "/" + id + "/page/" + pageId);
                 }
                 if (canvas != null && !skipIt) {
-                    Thumbnail thumbnail = new Thumbnail(
-                            //baseIiif + pathMapper.makeIiifUrlPart(tdi, "preview", teca, tdi, tecaUrl) + "/full/full/0/default" + makeExtension(tdi)
-                            jmmsBase+"digitalObject/"+tdi+"?&mode=preview&w="+previewWidth+"&h="+previewHeight
-                            //baseIiif+ pathMapper.makeIiifUrlPart(tdi,"preview", teca, tdi, tecaUrl)
-                    );
-//                    thumbnail.setHeight(Configs.getInstance().getInt("cache.img.preview.size.y", 150));
-//                    thumbnail.setWidth(Configs.getInstance().getInt("cache.img.preview.size.x", 150));
-                    thumbnail.setHeight( previewHeight );
-                    thumbnail.setWidth( previewWidth );
-                    thumbnail.setFormat("image/jpeg");
+                    List<Thumbnail> thumbnails = getThumbnailImage(tdi);
                     currentMedia.setAnnotationPage(annotationPage);
-                    currentMedia.setThumbnail(thumbnail);
+                    currentMedia.setThumbnails(thumbnails);
                     //makeCurrentMedia(currentMedia, canvas);
                 } else {
                     if(!skipIt)
@@ -320,10 +316,27 @@ public class MagHandler3 extends DefaultHandler {
 
     }
 
+    private List<Thumbnail> getThumbnailImage(String tdi) {
+        Thumbnail thumbnail = new Thumbnail(
+                //baseIiif + pathMapper.makeIiifUrlPart(tdi, "preview", teca, tdi, tecaUrl) + "/full/full/0/default" + makeExtension(tdi)
+                jmmsBase+"digitalObject/"+ tdi +"?&mode=preview&w="+previewWidth+"&h="+previewHeight
+                //baseIiif+ pathMapper.makeIiifUrlPart(tdi,"preview", teca, tdi, tecaUrl)
+        );
+//                    thumbnail.setHeight(Configs.getInstance().getInt("cache.img.preview.size.y", 150));
+//                    thumbnail.setWidth(Configs.getInstance().getInt("cache.img.preview.size.x", 150));
+        thumbnail.setHeight( previewHeight );
+        thumbnail.setWidth( previewWidth );
+        thumbnail.setFormat("image/jpeg");
+
+        //thumbnail = new Thumbnail(jmmsBase+"digitalObject/audio_ab38d9bf64bdceb9ecb510fe17be7449_803edd0c16ad941a2af3f2bd4b2466ad_cut");
+        //thumbnail.setFormat("audio/mpeg");
+        return List.of(thumbnail);
+    }
+
     private void makeCurrentMedia(CurrentMedia currentMedia, Canvas canvas) {
         canvas.getItems().add(currentMedia.getAnnotationPage());
         canvas.setThumbnail(new ArrayList<>());
-        canvas.getThumbnail().add(currentMedia.getThumbnail());
+        canvas.getThumbnail().addAll(currentMedia.getThumbnails());
     }
 
     private String makeExtension(String tdi) {
@@ -532,7 +545,11 @@ public class MagHandler3 extends DefaultHandler {
 //                annotationBody.setService(null);
                 if (audiogroupID != null && groupInfos.get(audiogroupID) != null)
                     annotationBody.setFormat(groupInfos.get(audiogroupID).getFormat());
-                currentMedia.setThumbnail(getThumbnail("audio"));
+                currentMedia.setThumbnails(getThumbnail("audio", currentMedia.getId(), hasCuts));
+                if(canvas==null){
+                    canvas = new Canvas(base + tecaUrl + "/" + id + "/canvas/" + pageId);
+                    manifest.getItems().add(canvas);
+                }
                 makeCurrentMedia(currentMedia, canvas);
             }
         }
@@ -549,7 +566,7 @@ public class MagHandler3 extends DefaultHandler {
 //                canvas.getThumbnail().add(getThumbnail("video"));
 //                annotationBody.setDuration(duration);
 //                annotationBody.setService(null);
-                currentMedia.setThumbnail(getThumbnail("video"));
+                currentMedia.setThumbnails(getThumbnail("video",null, false));
                 makeCurrentMedia(currentMedia, canvas);
             }
         }
@@ -623,7 +640,8 @@ public class MagHandler3 extends DefaultHandler {
         }
     }
 
-    private Thumbnail getThumbnail(String type) {
+    private List<Thumbnail> getThumbnail(String type, String id, boolean hasCuts) {
+        List<Thumbnail> thumbnails = new ArrayList<>();
         Thumbnail thumbnail = new Thumbnail(
                 jmmsBase+"images/"+type+"_icon.png"
         );
@@ -632,7 +650,18 @@ public class MagHandler3 extends DefaultHandler {
         thumbnail.setHeight( 150 );
         thumbnail.setWidth( 150 );
         thumbnail.setFormat("image/png");
-        return thumbnail;
+        thumbnails.add(thumbnail);
+
+        if(type.equals("audio") && hasCuts) {
+            String idTemp = id;
+            if(!"4".equals(currentMedia.getUsage()))
+                idTemp = id + AudioCutterComponent.SUFFIX;
+            thumbnail = new Thumbnail(jmmsBase + "digitalObject/" + id, "Sound");
+            thumbnail.setDuration(30.0);
+            thumbnail.setFormat("audio/mp3");
+            thumbnails.add(thumbnail);
+        }
+        return thumbnails;
     }
 
     private String clear27(String string) {

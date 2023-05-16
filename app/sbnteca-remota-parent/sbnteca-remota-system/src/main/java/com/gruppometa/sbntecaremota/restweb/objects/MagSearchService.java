@@ -93,6 +93,13 @@ import com.gruppometa.sbntecaremota.util.UtilSolr;
 import com.gruppometa.sbntecaremota.util.UtilXML;
 import com.gruppometa.sbntecaremota.util.Utility;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+
 public class MagSearchService {
 
 	// logger
@@ -140,8 +147,16 @@ public class MagSearchService {
 	@Autowired
 	private Integer normalizationBatchSize;
 	
-	
-	
+	private String urlBase;
+
+	public String getUrlBase() {
+		return urlBase;
+	}
+
+	public void setUrlBase(String urlBase) {
+		this.urlBase = urlBase;
+	}
+
 	/**
 	 * Popola le mappe a partire dalla richiesta della ricerca avanzata
 	 * 
@@ -1099,7 +1114,17 @@ public class MagSearchService {
 					boolean addToCompressed = true;
 					String magIDForFile = mag.getIdMag().replaceAll("\\/", "_").replaceAll("\\\\", "_");
 					Document document = UtilXML.convertStringToDocumentXML(mag.getMagInternal());
-
+					/**
+					 * Mag 0.2 usa identifier per il nome del file
+					 */
+					if(Mag.MAG02.equalsIgnoreCase(request.getFormat())){
+						NodeList fileNodeList = document.getElementsByTagNameNS("http://purl.org/dc/elements/1.1/", "identifier");
+						for (int i = 0; i < fileNodeList.getLength(); i++) {
+							Element fileNode = (Element) fileNodeList.item(i);
+							magIDForFile = fileNode.getTextContent().replaceAll("\\/", "_").replaceAll("\\\\", "_");
+							break;
+						}
+					}
 					Document documentMets = null;
 					if(Mag.METS.equals(mag.getDocumentFormat())){
 						documentMets = UtilXML.convertStringToDocumentXML(mag.getMetsOriginal());
@@ -1108,7 +1133,7 @@ public class MagSearchService {
 					if(request.getDress())
 						this.exportDress(document, server);
 
-					if(!"iiif".equalsIgnoreCase(request.getFormat())) {
+					if(!Mag.IIIF.equalsIgnoreCase(request.getFormat()) && !Mag.MAG02.equalsIgnoreCase(request.getFormat())) {
 						NodeList fileNodeList = document.getElementsByTagNameNS("http://www.iccu.sbn.it/metaAG1.pdf", "file");
 						Map<String, Integer> fileNameMap = new HashMap<String, Integer>();
 
@@ -1173,7 +1198,14 @@ public class MagSearchService {
 					else {
 						byte[] bytes = null;
 						String extensionOfFiles = ".xml";
-						if(!Mag.IIIF.equalsIgnoreCase(request.getFormat())) {
+						if(Mag.MAG02.equalsIgnoreCase(request.getFormat())){
+							Document documentMag02 = transfromMag2Mag02(document, getUrlBase(), request.getUsage());
+							/**
+							 * reduce to Mag 0.2
+							 */
+							bytes = UtilXML.convertDocumentToByteArray(documentMag02);
+						}
+						else if(!Mag.IIIF.equalsIgnoreCase(request.getFormat())) {
 							bytes = UtilXML.convertDocumentToByteArray(documentMets != null ? documentMets : document);
 						}
 						else{
@@ -1192,7 +1224,10 @@ public class MagSearchService {
 						 * i manifest sono senza oggetti digitali e cartelle
 						 */
 						String fullPath = null;
-						if(Mag.IIIF.equalsIgnoreCase(request.getFormat()))
+						if(Mag.MAG02.equalsIgnoreCase(request.getFormat())){
+							fullPath = magIDForFile +extensionOfFiles;
+						}
+						else if(Mag.IIIF.equalsIgnoreCase(request.getFormat()))
 							fullPath = magIDForFile +extensionOfFiles;
 						else
 							fullPath = magIDForFile + "/" + magIDForFile +extensionOfFiles;
@@ -1290,7 +1325,39 @@ public class MagSearchService {
 		
 		return response;
 	}
-	
+
+	protected Transformer transformer4mag02 = null;
+
+	protected Transformer getTransformer4mag02(){
+		if(transformer4mag02!=null)
+			return transformer4mag02;
+		TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",
+				SaxonHelper.class.getClassLoader());
+		Transformer transformer = null;
+		try {
+			String xslt = "/xslt/mag2mag02.xslt";
+			transformer = factory.newTransformer(
+					new StreamSource(SaxonHelper.class.getResourceAsStream(xslt)));
+			transformer4mag02 = transformer;
+		} catch (Exception e) {
+			logger.error("",e);
+		}
+		return transformer4mag02;
+	}
+	public Document transfromMag2Mag02(Document mag, String baseUrl, String usages){
+		try {
+			Transformer transformer = getTransformer4mag02();
+			DOMResult domResult = new DOMResult();
+			transformer.setParameter("baseUrl", baseUrl);
+			transformer.setParameter("usages", usages);
+			transformer.transform(new DOMSource(mag), domResult );
+			return (Document) domResult.getNode();
+		} catch (Exception e) {
+			logger.error("",e);
+		}
+		return null;
+	}
+
 	/**
 	 * Esegui la vestizione in caso di export
 	 * 

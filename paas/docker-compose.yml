@@ -9,6 +9,10 @@ services:
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --api.insecure=true
+      # per tutti gli IP:
+      - --entryPoints.web.forwardedHeaders.insecure=true
+      # Per sapere l'IP del client per il filtro sulle preview degli audio bisogna inserire:
+      #- --entryPoints.web.forwardedHeaders.trustedIPs=127.0.0.1/32,192.168.1.1/32
     ports:
       - "80:80"
     volumes:
@@ -41,7 +45,7 @@ services:
       SOLR_JAVA_MEM: "-Xms1g -Xmx1g"
 
   tecadigitalesystem:
-    image: localhost/sbnteca-remota-system:2.0.0
+    image: localhost/sbnteca-remota-system:2.2.0
     restart: "${RESTART_OPTION:-no}"
     ports:
       - "5005:5005"
@@ -54,13 +58,25 @@ services:
       DB_USER: ${MYSQL_ROOT_USERNAME:-root}
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
       SPRING_PROFILES_ACTIVE: docker
+      AUDIO_CUTTER_ACTIVE: "false"
+      AUDIO_PREVIEW_CUT_IN_SECONDS: 30
+      audio.ffmpeg.debug: "true"
+      AUDIO_FULLVIEW_IPS: "" # per chiamate interne
       SERVER_SERVLET_CONTEXTPATH: "/TecaDigitaleSystem"
       BACKEND_SERVER_EXTERNAL: ${SERVER_BASE:-http://127.0.0.1}
       TDI_SYSTEM_URL: "http://tecadigitalesystem:8080/TecaDigitaleSystem"
       logging.level.com.gruppometa.sbntecaremota.restweb.objects: TRACE
       logging.level.com.gruppometa.sbntecaremota.upgrade: DEBUG
+      logging.level.com.gruppometa.sbntecaremota.restweb: DEBUG
       SECURITY_ENABLED: ${SECURITY_ENABLED:-true}
       upgrade.enabled: "${UPGRADE_ENABLED:-false}"
+      usages.switch.active: "false"
+      usages.switch.ips.whitelist: "172.22.0.0/24"
+      usages.switch.ips.blacklist: "172.22.0.3,192.168.1.162"
+      usages.switch.changes: "3->4"
+      usages.switch.notfoundException: "true" # " ("false", se non trovato rispondi con 3) or "true" -> 404
+      tty: "true"
+      spring.output.ansi.enabled: ALWAYS
     volumes:
        - ./containerdata/app-data:/app-data
     labels:
@@ -72,7 +88,7 @@ services:
       - "traefik.http.middlewares.protoHeader2.headers.customrequestheaders.X-Forwarded-Port=${HTTP_PORT_SITE:-443}"
 
   metaoaicat:
-    image: localhost/sbnteca-remota-metaoaicat:2.0.0
+    image: localhost/sbnteca-remota-metaoaicat:2.2.0
     restart: "${RESTART_OPTION:-no}"
     ports:
       - "9000:9000"
@@ -100,7 +116,7 @@ services:
       - "traefik.http.services.metaoaicat.loadbalancer.server.port=9000"
 
   console:
-    image: localhost/sbnteca-remota-console:2.0.0
+    image: localhost/sbnteca-remota-console:2.2.0
     restart: "${RESTART_OPTION:-no}"
     ports:
       - "5006:5006"

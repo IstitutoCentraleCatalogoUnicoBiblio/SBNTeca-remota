@@ -24,9 +24,19 @@ public class DataResourceDelivery implements Serializable {
 	
 	// data ultima modifica
 	private Date lastModified;
-	
-	
-	
+
+	private String fileName;
+
+	private String usage;
+
+	public String getUsage() {
+		return usage;
+	}
+
+	public void setUsage(String usage) {
+		this.usage = usage;
+	}
+
 	/**
 	 * Restituisce lo stream
 	 * 
@@ -135,4 +145,11 @@ public class DataResourceDelivery implements Serializable {
 		this.lastModified = lastModified;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 }

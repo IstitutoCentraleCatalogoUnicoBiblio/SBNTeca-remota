@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.gruppometa.sbntecaremota.restweb.AudioCutterComponent;
 import com.gruppometa.sbntecaremota.vfsfilesystem.VfsFile;
 import com.gruppometa.sbntecaremota.vfsfilesystem.VfsFileSystem;
 import com.gruppometa.sbntecaremota.vfsfilesystem.VfsService;
@@ -897,6 +898,11 @@ public abstract class AbstractMagPersistence implements MagPersistence {
 			Attr href = fileNode.getAttributeNodeNS("http://www.w3.org/TR/xlink", "href");
 			VfsFile originalFile =
 					vfsFileSystem.getVfsService().getResourceByVfsPathAndHref(mag.getPath(), href.getValue(), true);
+			if(!res.getUsage().contains(originalFile.getUsage())){
+				originalFile.setUsage(res.getUsage().get(0));
+				vfsFileSystem.getVfsService().save(originalFile);
+				logger.debug("Save usage...");
+			}
 					// new File(projectPath, href.getValue());
 			setResourceProperties(mag.getPath(), mag.getMagProject(), projectPath, res, href, originalFile);
 			href.setValue(StringUtils.isEmpty(res.getDeliveryID()) ? "" : "digitalObject/" + res.getDeliveryID() + "/original");
@@ -911,6 +917,7 @@ public abstract class AbstractMagPersistence implements MagPersistence {
 						this.searchDigitalType(mag, resourceNode, filetype, groups);
 						href.setValue("digitalObject/" + res.getDeliveryID());
 						resources.add(res);
+						ckeckCutAudioInsert(resources, res, usageExp, filetype, originalFile);
 						break;
 					}
 				}
@@ -932,6 +939,24 @@ public abstract class AbstractMagPersistence implements MagPersistence {
 		return resources;
     }
 
+	private void ckeckCutAudioInsert(List<DeliveryResource> resources, DeliveryResource res, List<String> usageExp, String fileType, VfsFile vfsFile){
+		if("audio".equals(fileType) && res.getUsage().contains("3") && usageExp.contains("5")){
+			logger.info("Add cut resource");
+			DeliveryResource deliveryResource = new DeliveryResource();
+			VfsFile vfsFileCopy = vfsFileSystem.getVfsService().makeCutAudio(vfsFile);
+			setResourceProperties(res, vfsFileCopy, deliveryResource );
+			resources.add(deliveryResource);
+		}
+	}
+	private void setResourceProperties(DeliveryResource source, VfsFile vfsFile, DeliveryResource destination) {
+		destination.setHref(source.getVfsFilename());
+		destination.setVfsContainer(source.getVfsContainer());
+		destination.setType(source.getType());
+		destination.setVfsDirectory(source.getVfsDirectory());
+		destination.setDeliveryID(source.getDeliveryID()+ AudioCutterComponent.SUFFIX);
+		destination.setHref(vfsFile.getPath());
+		destination.setProject(source.getProject());
+	}
 	private void setResourceProperties(String magPath, String magProject, String projectPath, DeliveryResource res, Attr href, VfsFile originalFile) {
 		res.setVfsFilename(href.getValue());
 		if(originalFile.getContainer()!=null && originalFile.getContainer().size()>0) {

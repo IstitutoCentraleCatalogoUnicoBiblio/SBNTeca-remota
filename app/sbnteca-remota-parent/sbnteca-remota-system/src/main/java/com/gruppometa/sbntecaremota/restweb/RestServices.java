@@ -850,7 +850,7 @@ public class RestServices {
 					header("Content-Transfer-Encoding", "binary").
 					header("video".equals(type) ? "Content-Encoding" : "Content-Length", "video".equals(type) ? "identity" : end - start + 1).
 					header("Content-Type", mimeType).
-					header("Content-Disposition", disposition + "; filename=\"" + resource.getResourceName() + "\"").
+					header("Content-Disposition", disposition + "; filename=\"" + AudioCutterComponent.makeResponseExtension(resource.getResourceName()) + "\"").
 					header("ETag", type + "/" + sequenceNumber + "/" + usage + "?id=" + idMag).
 					header("Last-Modified", resource.getLastModified());
 			

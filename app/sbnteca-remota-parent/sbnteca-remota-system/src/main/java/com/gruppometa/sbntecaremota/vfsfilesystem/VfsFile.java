@@ -26,6 +26,15 @@ public class VfsFile {
     protected String filename;
     protected String frontespizio;
     protected String parent;
+    protected String createdFrom;
+
+    public String getCreatedFrom() {
+        return createdFrom;
+    }
+
+    public void setCreatedFrom(String createdFrom) {
+        this.createdFrom = createdFrom;
+    }
 
     public boolean isDraft() {
         return draft;

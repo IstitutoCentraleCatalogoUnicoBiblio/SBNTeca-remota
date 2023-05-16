@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.gruppometa.sbntecaremota.restweb.AudioCutterComponent;
 import com.gruppometa.sbntecaremota.vfsfilesystem.VfsFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -359,7 +360,14 @@ public class UtilXML {
 			
 			if(proxyHasUsageA) {
 				proxiesUsageA.add(proxyNode);
-				
+				/**
+				 * crea cut audio node
+				 */
+				if(proxyUsages.contains("3") && usageE.contains("5")
+						&& resource.getLocalName().equals("audio")){
+					proxiesUsageA.add(makeAudioNode(proxyNode));
+				}
+
 				if(i == proxyNodeList.size() - 1 && !firstDigitalObjects.containsKey(resource.getLocalName())) {
 					NodeList childrenNodeList = proxyNode.getChildNodes();
 					
@@ -380,14 +388,37 @@ public class UtilXML {
 				}
 			}
 			
-			if(proxyHasUsageE)
+			if(proxyHasUsageE) {
 				proxiesUsageE.add(proxyNode);
+				/**
+				 * crea cut audio node
+				 */
+				if(proxyUsages.contains("3") && usageE.contains("5")
+						&& resource.getLocalName().equals("audio")){
+					proxiesUsageE.add(makeAudioNode(proxyNode));
+				}
+			}
 		}
 		
 		processProxies(resource, docInternal, magMetadigitInternal, proxiesUsageA);
 		processProxies(resource, docExternal, magMetadigitExternal, proxiesUsageE);
 	}
-	
+
+	private static Element makeAudioNode(Node proxyNode){
+		Element nodeCut = (Element) proxyNode.cloneNode(true);
+		NodeList list = nodeCut.getElementsByTagName("file");
+		for(int j = 0; j< list.getLength(); j++) {
+			Element element = (Element) list.item(j);
+			String deliveryID = element.getAttributeNS("http://www.w3.org/TR/xlink", "href");
+			element.setAttributeNS("http://www.w3.org/TR/xlink", "xlink:href", deliveryID + AudioCutterComponent.SUFFIX);
+		}
+		list = nodeCut.getElementsByTagName("usage");
+		for(int j = 0; j< list.getLength(); j++) {
+			Element element = (Element) list.item(j);
+			element.setTextContent("4");
+		}
+		return nodeCut;
+	}
 	/**
 	 * Elabora i proxies per la risorsa digitale multimediale, filtrando per usage, per 
 	 * la versione MAG selezionata

@@ -21,6 +21,8 @@ import com.gruppometa.sbntecaremota.retrieve.MagResourceDelivery;
 import com.gruppometa.sbntecaremota.util.ContentStatic;
 import com.gruppometa.sbntecaremota.util.ThumbnailCreator;
 
+import static com.gruppometa.sbntecaremota.restweb.AudioCutterComponent.getResourceTypeByContentType;
+
 /**
  * Servizi che implementano l'accesso al delivery
  * 
@@ -45,7 +47,13 @@ public class ResourceDownload {
 	// resource delivery
 	@Autowired
 	private MagResourceDelivery delivery;
-	
+
+	@Autowired
+	private AudioCutterComponent audioCutterComponent;
+
+	@Autowired
+	private UsageSwitchComponent usageSwitchComponent;
+
 	// logger
 	private static Logger logger = LoggerFactory.getLogger(ResourceDownload.class);
 	
@@ -62,15 +70,35 @@ public class ResourceDownload {
 	@GET
 	@Path("/{id}")
 	public Response getTecaDigitalResource(@PathParam("id") String deliveryID, 
-			@QueryParam("mode") String mode, @QueryParam("w") Integer width,
+			@QueryParam("mode") String mode,
+			@QueryParam("w") Integer width,
+			@QueryParam("thumb") String thumbCall,
 			@QueryParam("cache") @DefaultValue("true") String cache,
 			@QueryParam("h") Integer height) {
 		
 		DataResourceDelivery data = delivery.getResourceByID(deliveryID, false);
-		
+
+		if(usageSwitchComponent.haveToChange(data, mode, request, thumbCall)){
+			String idOtherUsage = null;
+			try {
+				idOtherUsage = usageSwitchComponent.getIdForMappedUsage(deliveryID, data.getUsage());
+				if(idOtherUsage!=null) {
+					data = delivery.getResourceByID(idOtherUsage, false);
+					logger.debug("Switch from "+deliveryID+" to "+idOtherUsage);
+				}
+			} catch (ForbiddenUsageException e) {
+				return Response.status(Response.Status.FORBIDDEN).build();
+			} catch (NotFoundUsageException e) {
+				logger.error("Errore 404: Risorsa digitale con l'usage modificato non trovata");
+				data = null;
+			}
+		}
 		// larghezza e altezza specificate
-		if(width != null && height != null) {
-			String resourceType = this.getResourceTypeByContentType(data.getContentType());
+		else if(audioCutterComponent.isAudio4Cut(data, mode, request, thumbCall )){
+			return audioCutterComponent.getAudioPreview(data);
+		}
+		else if(width != null && height != null) {
+			String resourceType = getResourceTypeByContentType(data.getContentType());
 			return this.getPreview(getUrlFromRequest(request), resourceType, width, height, cache);
 		}
 
@@ -83,7 +111,7 @@ public class ResourceDownload {
 			if(configProperties.containsKey(propWidth) && configProperties.containsKey(propHeight)) {
 				int w = Integer.parseInt(configProperties.getProperty(propWidth, "32"));
 				int h = Integer.parseInt(configProperties.getProperty(propHeight, "32"));
-				String resourceType = this.getResourceTypeByContentType(data.getContentType());
+				String resourceType = getResourceTypeByContentType(data.getContentType());
 				return this.getPreview(getUrlFromRequest(request), resourceType, w, h, cache);
 			}
 		}
@@ -130,13 +158,33 @@ public class ResourceDownload {
 	@GET
 	@Path("/{id}/original")
 	public Response getOriginalDigitalResource(@PathParam("id") String deliveryID, 
-			@QueryParam("mode") String mode, @QueryParam("w") Integer width, 
+			@QueryParam("mode") String mode,
+			@QueryParam("w") Integer width,
+			@QueryParam("thumb") String thumbCall,
 			@QueryParam("h") Integer height) {
 
 		DataResourceDelivery data = delivery.getResourceByID(deliveryID, true);
-		
-		if(width != null && height != null) {
-			String resourceType = this.getResourceTypeByContentType(data.getContentType());
+
+		if(usageSwitchComponent.haveToChange(data, mode, request, thumbCall)){
+			String idOtherUsage = null;
+			try {
+				idOtherUsage = usageSwitchComponent.getIdForMappedUsage(deliveryID, data.getUsage());
+				if(idOtherUsage!=null) {
+					data = delivery.getResourceByID(idOtherUsage, false);
+					logger.debug("Switch from "+deliveryID+" to "+idOtherUsage);
+				}
+			} catch (ForbiddenUsageException e) {
+				return Response.status(Response.Status.FORBIDDEN).build();
+			} catch (NotFoundUsageException e) {
+				logger.error("Errore 404: Risorsa digitale con l'usage modificato non trovata");
+				data = null;
+			}
+		}
+		else if(audioCutterComponent.isAudio4Cut(data, mode, request, thumbCall)){
+			return audioCutterComponent.getAudioPreview(data);
+		}
+		else if(width != null && height != null) {
+			String resourceType = getResourceTypeByContentType(data.getContentType());
 			return this.getPreview(getUrlFromRequest(request), resourceType, width, height);
 		}
 
@@ -148,7 +196,7 @@ public class ResourceDownload {
 			if(configProperties.containsKey(propWidth) && configProperties.containsKey(propHeight)) {
 				int w = Integer.parseInt(configProperties.getProperty(propWidth, "32"));
 				int h = Integer.parseInt(configProperties.getProperty(propHeight, "32"));
-				String resourceType = this.getResourceTypeByContentType(data.getContentType());
+				String resourceType = getResourceTypeByContentType(data.getContentType());
 				return this.getPreview(getUrlFromRequest(request), resourceType, w, h);
 			}
 		}
@@ -188,6 +236,7 @@ public class ResourceDownload {
 		return getPreview(urlResource, type, width, height, null);
 	}
 
+
 	private Response getPreview(String urlResource, String type, int width, int height, String cache) {
 		try {
 			return Response.ok(thumbCreator.getThumb(urlResource, type, width, height, cache)).
@@ -199,23 +248,5 @@ public class ResourceDownload {
 		}
 	}
 	
-	/**
-	 * Restituisce il tipo di risorsa digitale dato il suo content type
-	 * 
-	 * @param contentType content type
-	 * @return String tipo di risorsa digitale (IMG, AUDIO, VIDEO, DOC)
-	 */
-	private String getResourceTypeByContentType(String contentType) {
-		String[] parts = contentType.split("\\/");
-		
-		if(parts.length == 0 || "image".equalsIgnoreCase(parts[0]))
-			return "img";
-		
-		else if("audio".equalsIgnoreCase(parts[0]) || "video".equalsIgnoreCase(parts[0]))
-			return parts[0];
-		
-		else
-			return "doc";
-	}
 
 }

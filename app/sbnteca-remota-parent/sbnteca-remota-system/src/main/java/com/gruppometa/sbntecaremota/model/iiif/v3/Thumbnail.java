@@ -3,8 +3,17 @@ package com.gruppometa.sbntecaremota.model.iiif.v3;
 public class Thumbnail extends JsonLdIdType{
 
     protected String format;
-    protected int width;
-    protected int height;
+    protected Integer width;
+    protected Integer height;
+    private Double duration;
+
+    public Double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
 
     public String getFormat() {
         return format;
@@ -14,7 +23,7 @@ public class Thumbnail extends JsonLdIdType{
         this.format = format;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
@@ -22,7 +31,7 @@ public class Thumbnail extends JsonLdIdType{
         this.width = width;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
@@ -30,6 +39,9 @@ public class Thumbnail extends JsonLdIdType{
         this.height = height;
     }
 
+    public Thumbnail(String id, String type) {
+        super(id, type);
+    }
     public Thumbnail(String id) {
         super(id, "Image");
     }

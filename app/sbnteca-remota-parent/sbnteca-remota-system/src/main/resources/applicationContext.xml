@@ -86,7 +86,9 @@
 	<!-- Servizi -->
 	<bean id="magProjectService" class="com.gruppometa.sbntecaremota.restweb.objects.MagProjectService"></bean>
 	<bean id="magImportService" class="com.gruppometa.sbntecaremota.restweb.objects.MagImportService"></bean>
-	<bean id="magSearchService" class="com.gruppometa.sbntecaremota.restweb.objects.MagSearchService"></bean>
+	<bean id="magSearchService" class="com.gruppometa.sbntecaremota.restweb.objects.MagSearchService">
+		<property name="urlBase" value="${backend.server.external}/TecaDigitaleSystem/"/>
+	</bean>
 	<bean id="magDetailService" class="com.gruppometa.sbntecaremota.restweb.objects.MagDetailService"></bean>
 	<bean id="magUserService" class="com.gruppometa.sbntecaremota.restweb.objects.MagUserService"></bean>
 	<bean id="magEditorService" class="com.gruppometa.sbntecaremota.restweb.objects.MagEditorService"></bean>

@@ -4,12 +4,23 @@ import com.gruppometa.sbntecaremota.model.iiif.v3.AnnotationBody;
 import com.gruppometa.sbntecaremota.model.iiif.v3.AnnotationPage;
 import com.gruppometa.sbntecaremota.model.iiif.v3.Thumbnail;
 
+import java.util.List;
+
 public class CurrentMedia {
 
     private AnnotationPage annotationPage;
-    private Thumbnail thumbnail;
+    private List<Thumbnail> thumbnails;
     private AnnotationBody annotationBody;
     private String usage;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setAnnotationPage(AnnotationPage annotationPage) {
         this.annotationPage = annotationPage;
@@ -19,12 +30,12 @@ public class CurrentMedia {
         return annotationPage;
     }
 
-    public void setThumbnail(Thumbnail thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnails(List<Thumbnail> thumbnails) {
+        this.thumbnails = thumbnails;
     }
 
-    public Thumbnail getThumbnail() {
-        return thumbnail;
+    public List<Thumbnail> getThumbnails() {
+        return thumbnails;
     }
 
     public void setAnnotationBody(AnnotationBody annotationBody) {
@@ -44,3 +55,4 @@ public class CurrentMedia {
         return usage;
     }
 }
+

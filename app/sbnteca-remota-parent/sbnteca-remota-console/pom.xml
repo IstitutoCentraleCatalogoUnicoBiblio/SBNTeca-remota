@@ -7,14 +7,14 @@
     <groupId>com.gruppometa.magteca</groupId>
     <artifactId>sbnteca-remota-console</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0</version>
+    <version>2.2.0</version>
     <name>SbnTeca Remota Console</name>
     <url>http://maven.apache.org</url>
 
     <parent>
         <groupId>com.gruppometa</groupId>
         <artifactId>sbnteca-remota-parent</artifactId>
-        <version>2.0.0</version>
+        <version>2.2.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

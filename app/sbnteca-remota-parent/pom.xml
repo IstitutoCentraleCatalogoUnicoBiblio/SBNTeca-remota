@@ -7,7 +7,7 @@
     <groupId>com.gruppometa</groupId>
     <artifactId>sbnteca-remota-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>2.2.0</version>
     <name>SbnTeca Remota Parent Project</name>
 
   	<parent>

@@ -15,6 +15,7 @@ public class Mag extends MagReference {
 	public static final String MAG = "mag";
 	public static final String METS = "mets";
 	public static final String IIIF = "iiif";
+	public static final String MAG02 = "xml-mag02";
 	
 	private int accessRights;
 	private int completeness;

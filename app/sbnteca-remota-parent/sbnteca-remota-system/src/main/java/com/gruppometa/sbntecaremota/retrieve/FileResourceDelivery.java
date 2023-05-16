@@ -225,12 +225,14 @@ public class FileResourceDelivery extends AbstractFileBasedResourceDelivery {
 					resourceDelivery.setResourceName(resource.getName());
 					resourceDelivery.setLength(resource.length());
 					logger.debug("Use "+resource.getAbsolutePath());
+					resourceDelivery.setFileName(resource.getAbsolutePath());
 					resourceDelivery.setStream(new FileInputStream(resource));
 				}
 				else if(resourceVirtuale.exists()) {
 					resourceDelivery.setResourceName(resourceVirtuale.getName());
 					resourceDelivery.setLength(resourceVirtuale.length());
 					logger.debug("Use "+resourceVirtuale.getAbsolutePath());
+					resourceDelivery.setFileName(resourceVirtuale.getAbsolutePath());
 					resourceDelivery.setStream(new FileInputStream(resourceVirtuale));
 				}
 				else

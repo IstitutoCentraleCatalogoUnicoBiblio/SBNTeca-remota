@@ -496,7 +496,7 @@ public class SbnProfile implements Profile {
 					else
 						return " / ";	
 				}
-				// secondo titolo 
+				// secondo titolo
 				if(code.equals("c"))
 					return " . ";
 			}

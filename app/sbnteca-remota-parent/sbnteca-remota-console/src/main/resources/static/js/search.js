@@ -687,6 +687,18 @@ $(document).ready(function() {
 	 		$("#exportUsage").css("display", "inline-block");
 	 	else
 	 		$("#exportUsage").css("display", "none");
+	 	if("xml-mag02"==$("#exportFormat").val()){
+	 		$("#exportUsage1Label").css("display", "inline-block");
+	 		$("#exportUsage2Label").css("display", "inline-block");
+	 		$("#exportUsage3Label").css("display", "inline-block");
+	 		$("#exportUsage5Label").css("display", "inline-block");
+	 	}
+	 	else{
+	 		$("#exportUsage1Label").css("display", "none");
+	 		$("#exportUsage2Label").css("display", "none");
+	 		$("#exportUsage3Label").css("display", "none");
+	 		$("#exportUsage5Label").css("display", "none");
+	 	}
 	 });
 	
 	$("#exportMagBtn").click(function() {
@@ -704,7 +716,15 @@ $(document).ready(function() {
 		$("#finalResultTableArea").css("display", "none");
 		var timeout;
 		opExecuting = true;
-		
+		var usages = $("#exportUsage").val();
+		if("xml-mag02"==$("#exportFormat").val()){
+			usages = "";
+			usages += $("#exportUsage1").prop("checked")?"1":"";
+			usages += $("#exportUsage2").prop("checked")?",2":"";
+			usages += $("#exportUsage3").prop("checked")?",3":"";
+			usages += $("#exportUsage5").prop("checked")?",5":"";
+		}
+
 		$.ajax({
 			url: restUrl + "exportMag",
 			type: "POST",
@@ -713,7 +733,7 @@ $(document).ready(function() {
 				"ricerca_avanzata" : lastBaseSearch,
 				"estensione": $("#exportExtension").val(),
 				"format": $("#exportFormat").val(),
-				"usage": $("#exportUsage").val(),
+				"usage": usages,
 				"nome_file": $("#exportFilename").val(),
 				"vestizione": $("#exportDress").prop("checked")
 			}),

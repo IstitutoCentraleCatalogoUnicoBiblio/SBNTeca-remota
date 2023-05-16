@@ -339,11 +339,16 @@ $(document).ready(function() {
 		$("#errorAcqUsage").css("display", "none");
 		
 		for(i = 1; i < 5; i++) {
-			if($("#usagea_" + i).prop("checked"))
+			if($("#usagea_" + i).prop("checked")){
 				$("#usagee_" + i).prop("disabled", false).parent().removeClass("check_disabled");
-			
-			else
+				if(i==3)
+					$("#usagee_5").prop("disabled", false).parent().removeClass("check_disabled");
+			}
+			else{
 				$("#usagee_" + i).prop("checked", false).prop("disabled", true).parent().addClass("check_disabled");
+				if(i==3)
+					$("#usagee_5").prop("checked", false).prop("disabled", true).parent().addClass("check_disabled");
+			}
 		}
 	});
 	
@@ -1194,10 +1199,18 @@ function buildUsageSets() {
 		if($("#usagea_" + i).prop("checked"))
 			usagea.push(i);
 		
-		if($("#usagee_" + i).prop("checked")) 
-			usagee.push(i);
 	}
-	
+	for(i = 1; i < 6; i++) {
+		var contains = false;
+		if($("#usagee_" + i).prop("checked")){
+			usagee.push(i);
+			if(i==4)
+				contains = true;
+			if(i==5 && !contains)
+				usagee.push(4);
+		}
+	}
+
 	return {
 		"usagea" : usagea,
 		"usagee" : usagee

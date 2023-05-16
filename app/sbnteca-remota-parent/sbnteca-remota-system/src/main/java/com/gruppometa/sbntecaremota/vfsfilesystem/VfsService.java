@@ -4,6 +4,7 @@ import com.gruppometa.data.mets.*;
 import com.gruppometa.mets2mag.MetsConvertor;
 import com.gruppometa.sbntecaremota.objects.DeliveryResource;
 import com.gruppometa.sbntecaremota.objects.json.*;
+import com.gruppometa.sbntecaremota.restweb.AudioCutterComponent;
 import com.gruppometa.sbntecaremota.util.ContentStatic;
 import com.gruppometa.sbntecaremota.util.UtilSolr;
 import com.gruppometa.sbntecaremota.util.Utility;
@@ -19,6 +20,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -34,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.gruppometa.sbntecaremota.restweb.AudioCutterComponent.LABEL_SUFFIX;
 import static com.gruppometa.sbntecaremota.util.Utility.*;
 import static com.gruppometa.sbntecaremota.vfsfilesystem.MetadataCreator.makeMetadata;
 import static com.gruppometa.sbntecaremota.vfsfilesystem.VfsFileSystem.createVfsFileOutput;
@@ -42,6 +45,9 @@ import static com.gruppometa.sbntecaremota.vfsfilesystem.VfsFileSystem.createVfs
 public class VfsService {
 
     protected static Logger logger = LoggerFactory.getLogger(VfsService.class);
+
+    @Autowired
+    protected AudioCutterComponent audioCutterComponent;
 
     protected boolean createMissingProjects = true;
     protected String urlBase;
@@ -296,6 +302,7 @@ public class VfsService {
         vfsItem.setContainer((ArrayList) solrDocument.getFieldValue("vfs_container"));
         vfsItem.setDirectory((ArrayList) solrDocument.getFieldValue("vfs_directory"));
         vfsItem.setDraftOf((String) solrDocument.getFieldValue("draft_of"));
+        vfsItem.setCreatedFrom((String) solrDocument.getFieldValue("created_from_s"));
         vfsItem.setOriginalPath((String) solrDocument.getFieldValue("original_path"));
         vfsItem.setContentType((String) solrDocument.getFieldValue("content_type"));
         vfsItem.setMd5((String) solrDocument.getFieldValue("md5"));
@@ -337,6 +344,7 @@ public class VfsService {
         solrInputFields.setField("vfs_usage_s", vfsItem.getUsage());
         solrInputFields.setField("filesize", vfsItem.getFileSize());
         solrInputFields.setField("width", vfsItem.getWidth());
+        solrInputFields.setField("created_from_s", vfsItem.getCreatedFrom());
         solrInputFields.setField("height", vfsItem.getHeight());
         solrInputFields.setField("duration", vfsItem.getDuration());
         solrInputFields.setField("draft_of", vfsItem.getDraftOf());
@@ -1329,5 +1337,31 @@ public class VfsService {
         SolrClient solrClient = new HttpSolrClient.Builder(ContentStatic.getProperties().getProperty("UrlDeliverySolr")).build();
         solrClient.deleteByQuery("vfs_directory:"+ClientUtils.escapeQueryChars(name)+ " AND -vfs_container:*");
         solrClient.commit();
+    }
+
+    public VfsFile makeCutAudio(VfsFile vfsFile) {
+        VfsFile vfsCut = new VfsFile();
+        try {
+            vfsCut.setId(vfsFile.getId()+AudioCutterComponent.SUFFIX);
+            vfsCut.setCreatedFrom(vfsFile.getId());
+            vfsCut.setFilename(vfsFile.getFilename());
+            vfsCut.setLabel(vfsFile.getLabel()+LABEL_SUFFIX);
+            vfsCut.setResourceType(vfsFile.getResourceType());
+            vfsCut.setParent(vfsFile.getParent());
+            vfsCut.setContainer(vfsFile.getContainer());
+            vfsCut.setDirectory(vfsFile.getDirectory());
+            vfsCut.setVfsType(vfsFile.getVfsType());
+            vfsCut.setUsage("4");
+            vfsCut.setContentType("audio/mpeg");
+            vfsCut.setUsed("true");
+            vfsCut.setOriginalPath(vfsFile.getOriginalPath()+"_cut.mp3");
+            vfsCut.setVfsPath(vfsFile.getVfsPath()+"_cut.mp3");
+            audioCutterComponent.makeAudioCut(vfsFile.getVfsPath(), vfsCut.getVfsPath());
+            save(vfsCut);
+        } catch (Exception e) {
+            logger.error("", e);
+            return null;
+        }
+        return vfsCut;
     }
 }
